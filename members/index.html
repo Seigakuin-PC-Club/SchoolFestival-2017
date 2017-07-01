@@ -11,7 +11,7 @@
 		<Script Src = "https://code.getmdl.io/1.3.0/material.min.js" Defer = "Defer"></Script>
 		<Script Src = "https://genbuproject.github.io/Programs/DOM Extender/DOM Extender v3.0.js"></Script>
 
-		<Script Src = "../Core.js"></Script>
+		<Script Src = "https://seigakuin-pc-club.github.io/SchoolFestival-2017/Core.js"></Script>
 
 		<Style>
 			Dialog.mdl-card:not([open]) {
@@ -22,16 +22,16 @@
 
 			.mdl-cell[UUID="Profile"] {
 				Display: Flex;
-				Flex-Flow: Row NoWrap;
+				Flex-Flow: Row Wrap;
 				Justify-Content: Space-Around;
 			}
 
 			.mdl-card[UUID^="Profile"] {
-				Margin-Right: 1pc;
+				Margin-Bottom: 2pc;
 			}
 
 			.mdl-card[UUID^="Profile"]:Last-Child {
-				Margin-Right: 0;
+				Margin-Bottom: 0;
 			}
 
 			.mdl-card[UUID^="Profile"] > .mdl-card__title {
@@ -46,7 +46,7 @@
 	
 	<Body>
 		<Div Class = "mdl-grid">
-			<Div UUID = "Profile" Class = "mdl-cell mdl-cell--0-offset mdl-cell--12-col mdl-shadow--4dp mdl-color--white mdl-color-text--grey-800" Style = "Padding: 3pc 2pc">
+			<Div UUID = "Profile" Class = "mdl-cell mdl-cell--2-offset mdl-cell--8-col mdl-shadow--4dp mdl-color--white mdl-color-text--grey-800" Style = "Padding: 3pc 2pc">
 				<Div UUID = "Profile[GenbuHase]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "GenbuHase/favicon.png" />
