@@ -3,25 +3,42 @@
 <HTML>
 	<Head>
 		<Meta Charset = "UTF-8" />
-		<Link Rel = "Shortcut Icon" Href = "../../favicon.png" />
+		<Link Rel = "Shortcut Icon" Href = "../favicon.png" />
 		<Title>聖学院中学校・高等学校 プログラミング部 ～記念祭プロジェクト in 2017～ | メンバー紹介</Title>
 
 		<Link Rel = "StyleSheet" Href = "https://fonts.googleapis.com/icon?family=Material+Icons" />
 		<Link Rel = "StyleSheet" Href = "https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
 		<Script Src = "https://code.getmdl.io/1.3.0/material.min.js" Defer = "Defer"></Script>
+		<Script Src = "https://genbuproject.github.io/Programs/DOM Extender/DOM Extender v3.0.js"></Script>
+
+		<Script Src = "../Core.js"></Script>
 
 		<Style>
-			Div.mdl-grid > Div.mdl-cell[UUID^="Profile"] {
+			Dialog.mdl-card:not([open]) {
+				Display: None;
+			}
+
+
+
+			.mdl-cell[UUID="Profile"] {
 				Display: Flex;
-				Flex-Wrap: Wrap;
+				Flex-Flow: Row NoWrap;
 				Justify-Content: Space-Around;
 			}
 
-			.mdl-card > Div.mdl-card__title {
+			.mdl-card[UUID^="Profile"] {
+				Margin-Right: 1pc;
+			}
+
+			.mdl-card[UUID^="Profile"]:Last-Child {
+				Margin-Right: 0;
+			}
+
+			.mdl-card[UUID^="Profile"] > .mdl-card__title {
 				Padding: 0;
 			}
 
-			.mdl-card > Div.mdl-card__title > Img {
+			.mdl-card[UUID^="Profile"] > .mdl-card__title > Img {
 				Width: 100%;
 			}
 		</Style>
@@ -29,8 +46,8 @@
 	
 	<Body>
 		<Div Class = "mdl-grid">
-			<Div UUID = "Profile" Class = "mdl-cell mdl-cell--2-offset mdl-cell--8-col mdl-shadow--4dp mdl-color--white mdl-color-text--grey-800" Style = "Padding: 3pc 2pc">
-				<Div UUID = "Profile{GenbuHase}" Class = "mdl-card mdl-shadow--4dp">
+			<Div UUID = "Profile" Class = "mdl-cell mdl-cell--0-offset mdl-cell--12-col mdl-shadow--4dp mdl-color--white mdl-color-text--grey-800" Style = "Padding: 3pc 2pc">
+				<Div UUID = "Profile[GenbuHase]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "GenbuHase/favicon.png" />
 					</Div>
@@ -40,11 +57,11 @@
 					</Div>
 
 					<Div Class = "mdl-card__actions mdl-card--border">
-						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "#">View Details...</A>
+						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "GenbuHase/">View Details...</A>
 					</Div>
 				</Div>
 
-				<Div UUID = "Profile{ShodaiKusano}" Class = "mdl-card mdl-shadow--4dp">
+				<Div UUID = "Profile[ShodaiKusano]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "ShodaiKusano/favicon.png" />
 					</Div>
@@ -54,11 +71,11 @@
 					</Div>
 
 					<Div Class = "mdl-card__actions mdl-card--border">
-						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "#">View Details...</A>
+						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "ShodaiKusano/" Disabled = "Disabled">View Details...</A>
 					</Div>
 				</Div>
 
-				<Div UUID = "Profile{DaikiYamazaki}" Class = "mdl-card mdl-shadow--4dp">
+				<Div UUID = "Profile[DaikiYamazaki]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "DaikiYamazaki/favicon.png" />
 					</Div>
@@ -68,11 +85,11 @@
 					</Div>
 
 					<Div Class = "mdl-card__actions mdl-card--border">
-						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "#">View Details...</A>
+						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "DaikiYamazaki/" Disabled = "Disabled">View Details...</A>
 					</Div>
 				</Div>
 
-				<Div UUID = "Profile{ShutoAdachi}" Class = "mdl-card mdl-shadow--4dp">
+				<Div UUID = "Profile[ShutoAdachi]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "ShutoAdachi/favicon.png" />
 					</Div>
@@ -82,11 +99,11 @@
 					</Div>
 
 					<Div Class = "mdl-card__actions mdl-card--border">
-						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "#">View Details...</A>
+						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "ShutoAdachi/" Disabled = "Disabled">View Details...</A>
 					</Div>
 				</Div>
 
-				<Div UUID = "Profile{ShosukeKawahara}" Class = "mdl-card mdl-shadow--4dp">
+				<Div UUID = "Profile[ShosukeKawahara]" Class = "mdl-card mdl-shadow--4dp">
 					<Div Class = "mdl-card__title">
 						<Img Src = "ShosukeKawahara/favicon.png" />
 					</Div>
@@ -96,7 +113,7 @@
 					</Div>
 
 					<Div Class = "mdl-card__actions mdl-card--border">
-						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "#">View Details...</A>
+						<A Class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" Href = "ShosukeKawahara/" Disabled = "Disabled">View Details...</A>
 					</Div>
 				</Div>
 			</Div>

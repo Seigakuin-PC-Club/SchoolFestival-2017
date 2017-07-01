@@ -11,16 +11,7 @@
 		<Script Src = "https://code.getmdl.io/1.3.0/material.min.js" Defer = "Defer"></Script>
 		<Script Src = "https://genbuproject.github.io/Programs/DOM Extender/DOM Extender v3.0.js"></Script>
 
-		<Script>
-			window.addEventListener("DOMContentLoaded", function () {
-				DOM('@A:not([Href="#"])').forEach(function (elem, index, parent) {
-					elem.addEventListener("click", function (event) {
-						event.preventDefault();
-						DOM("$IFrame.mdl-layout__content").src = elem.href;
-					});
-				});
-			});
-		</Script>
+		<Script Src = "Core.js"></Script>
 	</Head>
 	
 	<Body Class = "mdl-layout mdl-js-layout">
@@ -34,10 +25,12 @@
 			<Span Class = "mdl-layout__title">Menu</Span>
 
 			<Nav Class = "mdl-navigation">
-				<A Class = "mdl-navigation__link" Href = "members/">メンバー一覧</A>
+				<A Class = "mdl-navigation__link" Href = "Top.html">トップページ</A>
+				<A Class = "mdl-navigation__link" Href = "members/">メンバー紹介</A>
+				<A Class = "mdl-navigation__link" Href = "products/">製作ゲーム</A>
 			</Nav>
 		</Div>
 		
-		<IFrame Class = "mdl-layout__content" Src = ""></IFrame>
+		<IFrame Class = "mdl-layout__content" Src = "Top.html"></IFrame>
 	</Body>
 </HTML>
