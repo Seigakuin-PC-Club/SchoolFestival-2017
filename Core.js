@@ -13,26 +13,6 @@ const SEIGPC = (function () {
 		Loading: {
 			value: document.registerElement("SEIGPC-Loading", {
 				prototype: (function () {
-					document.head.appendChild(new Style({
-						"SEIGPC-Loading": {
-							"Position": "Absolute",
-							"Left": 0,
-							"Top": 0,
-							"Width": "100%",
-							"Height": "100%",
-
-							"Z-Index": -1
-						},
-						
-						"SEIGPC-Loading.is-active": {
-							"Background": "RGBA(255, 255, 255, 0.5)",
-							
-							"Z-Index": 100
-						}
-					}));
-
-
-
 					const proto = Object.create(HTMLDivElement.prototype, {
 						createdCallback: {
 							value () {
@@ -79,7 +59,23 @@ const SEIGPC = (function () {
 								this.querySelector("Div.mdl-spinner.mdl-js-spinner").classList.remove("is-active");
 							}
 						}
-					});
+					}); document.head.appendChild(new Style({
+						"SEIGPC-Loading": {
+							"Position": "Absolute",
+							"Left": 0,
+							"Top": 0,
+							"Width": "100%",
+							"Height": "100%",
+
+							"Z-Index": -1
+						},
+						
+						"SEIGPC-Loading.is-active": {
+							"Background": "RGBA(255, 255, 255, 0.5)",
+							
+							"Z-Index": 100
+						}
+					}));
 
 					return proto;
 				})()
@@ -93,7 +89,7 @@ const SEIGPC = (function () {
 
 	window.addEventListener("DOMContentLoaded", function () {
 		let frame = parent.document.querySelector("IFrame.mdl-layout__content");
-			frame.addEventListener("beforeunload", function () {
+			window.addEventListener("beforeunload", function () {
 				parent.document.querySelector("SEIGPC-Loading").start();
 			});
 
