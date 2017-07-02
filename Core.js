@@ -87,30 +87,32 @@ const SEIGPC = (function () {
 
 
 
-	window.addEventListener("DOMContentLoaded", function () {
-		let frame = parent.document.querySelector("IFrame.mdl-layout__content");
-			window.addEventListener("beforeunload", function () {
-				parent.document.querySelector("SEIGPC-Loading").start();
+	if (location.pathname == "/") {
+		window.addEventListener("DOMContentLoaded", function () {
+			let frame = parent.document.querySelector("IFrame.mdl-layout__content");
+				window.addEventListener("beforeunload", function () {
+					parent.document.querySelector("SEIGPC-Loading").start();
+				});
+
+				frame.addEventListener("load", function () {
+					parent.document.querySelector("SEIGPC-Loading").stop();
+				});
+
+			DOM('@A:Not([Href="#"]):Not([Disabled])').forEach(function (elem, index, p) {
+				elem.addEventListener("click", function (event) {
+					event.preventDefault();
+
+					frame.src = elem.href;
+				});
 			});
 
-			frame.addEventListener("load", function () {
-				parent.document.querySelector("SEIGPC-Loading").stop();
-			});
-
-		DOM('@A:Not([Href="#"]):Not([Disabled])').forEach(function (elem, index, p) {
-			elem.addEventListener("click", function (event) {
-				event.preventDefault();
-
-				frame.src = elem.href;
+			DOM('@A[Disabled]').forEach(function (elem, index, p) {
+				elem.addEventListener("click", function (event) {
+					event.preventDefault();
+				});
 			});
 		});
-
-		DOM('@A[Disabled]').forEach(function (elem, index, p) {
-			elem.addEventListener("click", function (event) {
-				event.preventDefault();
-			});
-		});
-	});
+	}
 
 
 	
