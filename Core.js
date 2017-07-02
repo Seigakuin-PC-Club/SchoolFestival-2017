@@ -96,13 +96,13 @@ const SEIGPC = (function () {
 
 
 	window.addEventListener("DOMContentLoaded", function () {
+		/** @type {HTMLIFrameElement} */
 		let frame = parent.document.querySelector("IFrame.mdl-layout__content");
-
-		if (location.pathname == "/" || location.pathname == baseUrl) {
-			window.addEventListener("beforeunload", function () {
+			frame.contentWindow.addEventListener("beforeunload", function () {
 				parent.document.querySelector("SEIGPC-Loading").start();
 			});
-
+			
+		if (location.pathname == "/" || location.pathname == baseUrl) {
 			frame.addEventListener("load", function () {
 				parent.document.querySelector("SEIGPC-Loading").stop();
 			});
