@@ -87,8 +87,8 @@ const SEIGPC = (function () {
 
 
 
-	if (location.pathname == "/") {
-		window.addEventListener("DOMContentLoaded", function () {
+	window.addEventListener("DOMContentLoaded", function () {
+		if (location.pathname == "/") {
 			let frame = parent.document.querySelector("IFrame.mdl-layout__content");
 				window.addEventListener("beforeunload", function () {
 					parent.document.querySelector("SEIGPC-Loading").start();
@@ -111,8 +111,8 @@ const SEIGPC = (function () {
 					event.preventDefault();
 				});
 			});
-		});
-	}
+		}
+	});
 
 
 	
