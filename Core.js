@@ -64,6 +64,8 @@ const SEIGPC = (function () {
 							"Position": "Absolute",
 							"Left": 0,
 							"Top": 0,
+
+							"Display": "Flex",
 							"Width": "100%",
 							"Height": "100%",
 
@@ -71,9 +73,13 @@ const SEIGPC = (function () {
 						},
 						
 						"SEIGPC-Loading.is-active": {
-							"Background": "RGBA(255, 255, 255, 0.5)",
+							"Background": "RGBA(64, 64, 64, 0.5)",
 							
 							"Z-Index": 100
+						},
+
+						"SEIGPC-Loading > Div.mdl-spinner.mdl-js-spinner": {
+							"Margin": "Auto"
 						}
 					}));
 
