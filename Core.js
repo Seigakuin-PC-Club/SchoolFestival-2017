@@ -9,6 +9,8 @@
  *##################################################
 /*/
 const SEIGPC = (function () {
+	let baseUrl = "https://seigakuin-pc-club.github.io/SchoolFestival-2017/";
+	
 	const SEIGPC = {}; Object.defineProperties(SEIGPC, {
 		Loading: {
 			value: document.registerElement("SEIGPC-Loading", {
@@ -94,30 +96,31 @@ const SEIGPC = (function () {
 
 
 	window.addEventListener("DOMContentLoaded", function () {
-		if (location.pathname == "/") {
-			let frame = parent.document.querySelector("IFrame.mdl-layout__content");
-				window.addEventListener("beforeunload", function () {
-					parent.document.querySelector("SEIGPC-Loading").start();
-				});
+		let frame = parent.document.querySelector("IFrame.mdl-layout__content");
 
-				frame.addEventListener("load", function () {
-					parent.document.querySelector("SEIGPC-Loading").stop();
-				});
-
-			DOM('@A:Not([Href="#"]):Not([Disabled])').forEach(function (elem, index, p) {
-				elem.addEventListener("click", function (event) {
-					event.preventDefault();
-
-					frame.src = elem.href;
-				});
+		if (location.pathname == "/" || location.pathname == baseUrl) {
+			window.addEventListener("beforeunload", function () {
+				parent.document.querySelector("SEIGPC-Loading").start();
 			});
 
-			DOM('@A[Disabled]').forEach(function (elem, index, p) {
-				elem.addEventListener("click", function (event) {
-					event.preventDefault();
-				});
+			frame.addEventListener("load", function () {
+				parent.document.querySelector("SEIGPC-Loading").stop();
 			});
 		}
+
+		DOM('@A:Not([Href="#"]):Not([Disabled])').forEach(function (elem, index, p) {
+			elem.addEventListener("click", function (event) {
+				event.preventDefault();
+
+				frame.src = elem.href;
+			});
+		});
+
+		DOM('@A[Disabled]').forEach(function (elem, index, p) {
+			elem.addEventListener("click", function (event) {
+				event.preventDefault();
+			});
+		});
 	});
 
 
