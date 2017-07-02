@@ -1,7 +1,7 @@
 /*/
  *##################################################
  *	Core.js
- *	記念祭プロジェクト in 2017の中枢コード
+ *	記念祭プロジェクト in 2017の中枢処理群
  *
  *	(前提API：DOM Extender v3.0)
  *##################################################
@@ -18,13 +18,13 @@ const SEIGPC = (function () {
 					const proto = Object.create(HTMLDivElement.prototype, {
 						createdCallback: {
 							value () {
-								let loadingIcon = DOM("Div", {
+								this.spinner = DOM("Div", {
 									attributes: {
 										"class": "mdl-spinner mdl-js-spinner"
 									}
 								});
 
-								this.appendChild(loadingIcon);
+								this.appendChild(this.spinner);
 							}
 						},
 
@@ -48,17 +48,19 @@ const SEIGPC = (function () {
 
 
 
+						spinner: { value: null, configurable: true, writable: true, enumerable: true },
+
 						start: {
 							value () {
 								this.classList.add("is-active");
-								this.querySelector("Div.mdl-spinner.mdl-js-spinner").classList.add("is-active");
+								this.spinner.classList.add("is-active");
 							}
 						},
 
 						stop: {
 							value () {
 								this.classList.remove("is-active");
-								this.querySelector("Div.mdl-spinner.mdl-js-spinner").classList.remove("is-active");
+								this.spinner.classList.remove("is-active");
 							}
 						}
 					}); document.head.appendChild(new Style({
@@ -71,11 +73,12 @@ const SEIGPC = (function () {
 							"Width": "100%",
 							"Height": "100%",
 
-							"Z-Index": -1
+							"Transition": "Background 0.2s Linear 0s",
+							"Z-Index": -1,
 						},
 						
 						"SEIGPC-Loading.is-active": {
-							"Background": "RGBA(64, 64, 64, 0.5)",
+							"Background": "RGBA(64, 64, 64, 1)",
 							
 							"Z-Index": 100
 						},
@@ -101,7 +104,7 @@ const SEIGPC = (function () {
 			frame.contentWindow.addEventListener("beforeunload", function () {
 				parent.document.querySelector("SEIGPC-Loading").start();
 			});
-			
+
 		if (location.pathname == "/" || location.pathname == baseUrl) {
 			frame.addEventListener("load", function () {
 				parent.document.querySelector("SEIGPC-Loading").stop();
