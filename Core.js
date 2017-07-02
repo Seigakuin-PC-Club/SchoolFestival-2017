@@ -155,8 +155,6 @@ const SEIGPC = (function () {
 								},
 
 								"SEIGPC-Loading > SEIGPC-Loading-Spinner": {
-									"Animation": "SEIGPC-Loading-Spinner__Anime 1s Ease-In-Out 0s Infinite Normal",
-
 									"Display": "Block",
 									"Width": "50px",
 									"Height": "50px",
@@ -166,6 +164,10 @@ const SEIGPC = (function () {
 									"Background-Size": "Cover",
 
 									"Z-Index": 102
+								},
+
+								"SEIGPC-Loading > SEIGPC-Loading-Spinner.is-active": {
+									"Animation": "SEIGPC-Loading-Spinner__Anime 1s Ease-In-Out 0s Infinite Normal"
 								}
 							}));
 
