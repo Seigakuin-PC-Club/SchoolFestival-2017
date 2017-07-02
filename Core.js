@@ -9,7 +9,7 @@
  *##################################################
 /*/
 const SEIGPC = (function () {
-	let baseUrl = "https://seigakuin-pc-club.github.io/SchoolFestival-2017/";
+	let baseUrl = "/SchoolFestival-2017/";
 	
 	const SEIGPC = {}; Object.defineProperties(SEIGPC, {
 		Loading: {
