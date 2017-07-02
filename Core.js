@@ -13,16 +13,23 @@ const SEIGPC = (function () {
 	
 	const SEIGPC = {}; Object.defineProperties(SEIGPC, {
 		Loading: {
-			value: document.registerElement("SEIGPC-Loading", {
-				prototype: (function () {
-					const proto = Object.create(HTMLDivElement.prototype, {
+			value: (function () {
+				const Loading = document.registerElement("SEIGPC-Loading", {
+					prototype: Object.create(HTMLDivElement.prototype, {
 						createdCallback: {
 							value () {
-								this.spinner = DOM("Div", {
+								/*this.spinner = DOM("Div", {
 									attributes: {
-										"class": "mdl-spinner mdl-js-spinner"
+										"class": "mdl-spinner mdl-js-spinner mdl-spinner--single-color"
 									}
-								});
+								});*/
+
+								this.spinner = (function () {
+									let spinner = new SEIGPC.Loading.Spinner();
+										spinner.src = "favicon.png";
+
+									return spinner;
+								})()
 
 								this.appendChild(this.spinner);
 							}
@@ -63,34 +70,121 @@ const SEIGPC = (function () {
 								this.spinner.classList.remove("is-active");
 							}
 						}
-					}); document.head.appendChild(new Style({
-						"SEIGPC-Loading": {
-							"Position": "Absolute",
-							"Left": 0,
-							"Top": 0,
+					})
+				}); document.head.appendChild(new Style({
+					"SEIGPC-Loading": {
+						"Transition": "Opacity 0.25s Cubic-Bezier(0.4, 0, 0.2, 1) 0s",
 
-							"Display": "Flex",
-							"Width": "100%",
-							"Height": "100%",
+						"Position": "Absolute",
+						"Left": 0,
+						"Top": 0,
 
-							"Transition": "Background 0.2s Linear 0s",
-							"Z-Index": -1,
-						},
+						"Display": "Flex",
+						"Width": "100%",
+						"Height": "100%",
+
+						"Background": "RGBA(0, 0, 0, 0.5)",
+						"Opacity": 0,
+						"Z-Index": -1,
+					},
+					
+					"SEIGPC-Loading.is-active": {
+						"Transition": "Opacity 0.25s Cubic-Bezier(0.4, 0, 0.2, 1) 0s",
 						
-						"SEIGPC-Loading.is-active": {
-							"Background": "RGBA(64, 64, 64, 1)",
-							
-							"Z-Index": 100
-						},
+						"Opacity": 1,
+						"Z-Index": 100
+					},
 
-						"SEIGPC-Loading > Div.mdl-spinner.mdl-js-spinner": {
-							"Margin": "Auto"
-						}
-					}));
+					"SEIGPC-Loading > Div.mdl-spinner.mdl-js-spinner": {
+						"Margin": "Auto"
+					},
 
-					return proto;
-				})()
-			}),
+					"SEIGPC-Loading > Div.SEIGPC-Loading-Spinner": {
+						"Animation": "SEIGPC-Loading-Spinner__Anime 1s Ease 0s Infinite Normal",
+
+						"Margin": "Auto",
+						"Background": 'URL("favicon.png")'
+					}
+				})); Object.defineProperties(Loading, {
+					Spinner: {
+						value: (function () {
+							const Spinner = document.registerElement("SEIGPC-Loading-Spinner", {
+								prototype: Object.create(HTMLDivElement.prototype, {
+									createdCallback: {
+										value () {
+											
+										}
+									},
+
+									attachedCallback: {
+										value () {
+											
+										}
+									},
+
+									detachedCallback: {
+										value () {
+											
+										}
+									},
+
+									attributeChangedCallback: {
+										value (attr, oldValue, newValue) {
+											switch (attr) {
+												case "src":
+													this.style.backgroundImage = "URL(" + newValue + ")";
+													break;
+											}
+										}
+									},
+
+
+
+									src: {
+										value: "",
+
+										set src (val) {
+											this.setAttribute("src", val);
+										},
+										
+										configurable: true,
+										writable: true,
+										enumerable: true
+									}
+								})
+							}); document.head.appendChild(new Style({
+								"@Keyframes SEIGPC-Loading-Spinner__Anime": {
+									"0%": {
+										"Transform": "Rotate(0deg)"
+									},
+
+									"100%": {
+										"Transform": "Rotate(360deg)"
+									}
+								},
+
+								"SEIGPC-Loading > SEIGPC-Loading-Spinner": {
+									"Animation": "SEIGPC-Loading-Spinner__Anime 1s Ease-In-Out 0s Infinite Normal",
+
+									"Display": "Block",
+									"Width": "50px",
+									"Height": "50px",
+
+									"Margin": "Auto",
+									"Background-Position": "Center",
+									"Background-Size": "Cover"
+								}
+							}));
+
+							return Spinner;
+						})(),
+
+						enumerable: true
+					}
+				});
+
+				return Loading;
+			})(),
 
 			enumerable: true
 		}
