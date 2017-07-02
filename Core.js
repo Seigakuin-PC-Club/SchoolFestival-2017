@@ -89,21 +89,12 @@ const SEIGPC = (function () {
 					},
 					
 					"SEIGPC-Loading.is-active": {
-						"Transition": "Opacity 0.25s Cubic-Bezier(0.4, 0, 0.2, 1) 0s",
-						
 						"Opacity": 1,
-						"Z-Index": 100
+						"Z-Index": 101
 					},
 
 					"SEIGPC-Loading > Div.mdl-spinner.mdl-js-spinner": {
 						"Margin": "Auto"
-					},
-
-					"SEIGPC-Loading > Div.SEIGPC-Loading-Spinner": {
-						"Animation": "SEIGPC-Loading-Spinner__Anime 1s Ease 0s Infinite Normal",
-
-						"Margin": "Auto",
-						"Background": 'URL("favicon.png")'
 					}
 				})); Object.defineProperties(Loading, {
 					Spinner: {
@@ -112,7 +103,7 @@ const SEIGPC = (function () {
 								prototype: Object.create(HTMLDivElement.prototype, {
 									createdCallback: {
 										value () {
-											
+											this.style.backgroundImage = 'URL("favicon.png")';
 										}
 									},
 
@@ -172,7 +163,9 @@ const SEIGPC = (function () {
 
 									"Margin": "Auto",
 									"Background-Position": "Center",
-									"Background-Size": "Cover"
+									"Background-Size": "Cover",
+
+									"Z-Index": 102
 								}
 							}));
 
