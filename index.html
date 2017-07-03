@@ -14,25 +14,25 @@
 		<Script Src = "Core.js"></Script>
 	</Head>
 	
-	<Body Class = "mdl-layout mdl-js-layout mdl-layout--fixed-header" Style = 'Background: URL("Images/Tower.png") Center / Cover'>
-		<Header Class = "mdl-layout__header">
-			<Div Class = "mdl-layout__header-row">
-				<Span Class = "mdl-layout-title">聖学院中学校・高等学校 プログラミング部 ～記念祭プロジェクト in 2017～</Span>
+	<Body Style = 'Background: URL("Images/Tower.png") Center / Cover'>
+		<Div Class = "mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<Header Class = "mdl-layout__header">
+				<Div Class = "mdl-layout__header-row">
+					<Span Class = "mdl-layout-title">聖学院中学校・高等学校 プログラミング部 ～記念祭プロジェクト in 2017～</Span>
+				</Div>
+			</Header>
+			
+			<Div Class = "mdl-layout__drawer">
+				<Span Class = "mdl-layout__title">Menu</Span>
+
+				<Nav Class = "mdl-navigation">
+					<A Class = "mdl-navigation__link" Href = "Top.html">トップページ</A>
+					<A Class = "mdl-navigation__link" Href = "Members/">メンバー紹介</A>
+					<A Class = "mdl-navigation__link" Href = "Products/">製作ゲーム</A>
+				</Nav>
 			</Div>
-		</Header>
-		
-		<Div Class = "mdl-layout__drawer">
-			<Span Class = "mdl-layout__title">Menu</Span>
-
-			<Nav Class = "mdl-navigation">
-				<A Class = "mdl-navigation__link" Href = "Top.html">トップページ</A>
-				<A Class = "mdl-navigation__link" Href = "Members/">メンバー紹介</A>
-				<A Class = "mdl-navigation__link" Href = "Products/">製作ゲーム</A>
-			</Nav>
+			
+			<IFrame Class = "mdl-layout__content" Src = "Top.html"></IFrame>
 		</Div>
-		
-		<IFrame Class = "mdl-layout__content" Src = "Top.html"></IFrame>
-
-		<SEIGPC-Loading></SEIGPC-Loading>
 	</Body>
 </HTML>

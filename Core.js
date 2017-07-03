@@ -26,7 +26,7 @@ const SEIGPC = (function () {
 
 								this.spinner = (function () {
 									let spinner = new SEIGPC.Loading.Spinner();
-										spinner.src = "favicon.png";
+										spinner.setImage("favicon.png");
 
 									return spinner;
 								})()
@@ -86,6 +86,7 @@ const SEIGPC = (function () {
 						"Background": "RGBA(0, 0, 0, 0.5)",
 						"Opacity": 0,
 						"Z-Index": -1,
+						"Overflow": "Hidden"
 					},
 					
 					"SEIGPC-Loading.is-active": {
@@ -103,7 +104,7 @@ const SEIGPC = (function () {
 								prototype: Object.create(HTMLDivElement.prototype, {
 									createdCallback: {
 										value () {
-											this.style.backgroundImage = 'URL("favicon.png")';
+											
 										}
 									},
 
@@ -131,16 +132,11 @@ const SEIGPC = (function () {
 
 
 
-									src: {
-										value: "",
-
-										set src (val) {
-											this.setAttribute("src", val);
-										},
-										
-										configurable: true,
-										writable: true,
-										enumerable: true
+									setImage: {
+										value (src) {
+											this.src = src || "";
+											this.setAttribute("Src", src || "");
+										}
 									}
 								})
 							}); document.head.appendChild(new Style({
@@ -213,6 +209,8 @@ const SEIGPC = (function () {
 				event.preventDefault();
 			});
 		});
+
+		document.body.appendChild(new SEIGPC.Loading());
 	});
 
 
