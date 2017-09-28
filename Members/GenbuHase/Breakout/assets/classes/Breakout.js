@@ -16,6 +16,33 @@ const Breakout = (() => {
 	}; Breakout.prototype = Object.create(Function.prototype, {
 		constructor: { value: Breakout },
 
+		ObjectBase: {
+			value: (() => {
+				function ObjectBase () {
+
+				}; ObjectBase.prototype = Object.create(null, {
+					constructor: { value: ObjectBase },
+
+					x: { value: 0, configurable: true, writable: true, enumerable: true },
+					y: { value: 0, configurable: true, writable: true, enumerable: true },
+					width: { value: 0, configurable: true, writable: true, enumerable: true },
+					height: { value: 0, configurable: true, writable: true, enumerable: true }
+				}); Object.defineProperties(ObjectBase, {
+					Block: {
+						value: (() => {
+							function Block () {
+
+							};
+
+							return Block;
+						})()
+					}
+				});
+
+				return ObjectBase;
+			})()
+		},
+
 		cvs: { value: null, configurable: true, writable: true },
 		ctx: { value: null, configurable: true, writable: true },
 
