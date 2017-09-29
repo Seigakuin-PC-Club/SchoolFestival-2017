@@ -34,11 +34,55 @@ const Breakout = (() => {
 				}); Object.defineProperties(Substance, {
 					Ball: {
 						value: (() => {
+							function Ball () {
+								
+							}; Ball.prototype = Object.create(Substance.prototype, {
+								draw: {
+									value () {
+										ctx.beginPath();
+										ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2, true);
+
+										ctx.fillStyle = "RGB(128, 128, 128)";
+										ctx.fill();
+									}
+								}
+							});
+
+							return Ball;
+						})()
+					},
+
+					Block: {
+						value: (() => {
 							function Block () {
 								
-							};
+							}; Block.prototype = Object.create(Substance.prototype, {
+								draw: {
+									value () {
+										ctx.fillStyle = "RGB(128, 128, 128)";
+										ctx.fillRect(this.x, this.y, this.width, this.height);
+									}
+								}
+							});
 
 							return Block;
+						})()
+					},
+
+					Frip: {
+						value: (() => {
+							function Frip () {
+								
+							}; Frip.prototype = Object.create(Substance.prototype, {
+								draw: {
+									value () {
+										ctx.fillStyle = "RGB(128, 128, 128)";
+										ctx.fillRect(this.x, this.y, this.width, this.height);
+									}
+								}
+							});
+
+							return Frip;
 						})()
 					}
 				});
