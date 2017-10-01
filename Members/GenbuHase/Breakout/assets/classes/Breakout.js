@@ -5,9 +5,9 @@ const Breakout = (() => {
 	 * @param {Number} width
 	 * @param {Number} height
 	 */
-	function Breakout (width, height) {
-		this.width = width || DOM.width,
-		this.height = height || DOM.height;
+	function Breakout (width = DOM.width, height = DOM.height) {
+		this.width = width,
+		this.height = height;
 
 		ctx = DOM("#Breakout").getContext("2d");
 
@@ -33,12 +33,13 @@ const Breakout = (() => {
 				}); Object.defineProperties(Substance, {
 					Ball: {
 						value: (() => {
-							function Ball () {
-								
+							function Ball (radius = 5) {
+								this.radius = radius
 							}; Ball.prototype = Object.create(Substance.prototype, {
 								constructor: { value: Ball },
 
 								radius: { value: 0, configurable: true, writable: true, enumerable: true },
+								state: { value: 0, configurable: true, writable: true, enumerable: true },
 
 								move: {
 									value (dx = 0, dy = 0) {
@@ -47,20 +48,30 @@ const Breakout = (() => {
 
 										ctx.beginPath();
 										ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+										ctx.closePath();
 
-										ctx.fillStyle = "RGB(128, 128, 128)";
-										ctx.fill();
+										if (this.texture instanceof Breakout.Color) {
+											ctx.fillStyle = this.texture.toString();
+											ctx.fill();
+										} else if (this.texture instanceof Breakout.Texture) {
+											ctx.drawImage(this.texture.image, this.x, this.y, this.radius, this.radius);
+										}
+
+										ctx.fillStyle = new Breakout.Color().toString();
 									}
-								},
-
-								draw: {
-									value (x, y, radius) {
-										ctx.beginPath();
-										ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-
-										ctx.fillStyle = "RGB(128, 128, 128)";
-										ctx.fill();
-									}
+								}
+							}); Object.defineProperties(Ball, {
+								STATE: {
+									get () {
+										return {
+											TO_LEFT_TOP: 1,
+											TO_LEFT_BOTTOM: 2,
+											TO_RIGHT_TOP: 3,
+											TO_RIGHT_BOTTOM: 4
+										}
+									},
+						
+									enumerable: true
 								}
 							});
 
@@ -107,6 +118,19 @@ const Breakout = (() => {
 			})()
 		},
 
+		
+		
+		width: { value: 0, configurable: true, writable: true, enumerable: true },
+		height: { value: 0, configurable: true, writable: true, enumerable: true },
+		background: { value: null, configurable: true, writable: true, enumerable: true },
+
+		draw: {
+			value () {
+				ctx.fillStyle = this.background ? this.background.toString() : new Breakout.Color().toString();
+				ctx.fillRect(0, 0, this.width, this.height);
+			}
+		}
+	}); Object.defineProperties(Breakout, {
 		Color: {
 			value: (() => {
 				function Color (red = 0, green = 0, blue = 0) {
@@ -134,8 +158,10 @@ const Breakout = (() => {
 		Texture: {
 			value: (() => {
 				function Texture (url = "") {
-					this.src = url,
-					this.image = new Image(url);
+					this.src = url;
+
+					this.image = new Image();
+					this.image.src = url;
 				}; Texture.prototype = Object.create(null, {
 					constructor: { value: Texture },
 
@@ -145,18 +171,6 @@ const Breakout = (() => {
 
 				return Texture;
 			})()
-		},
-
-		
-		
-		width: { value: 0, configurable: true, writable: true, enumerable: true },
-		height: { value: 0, configurable: true, writable: true, enumerable: true },
-
-		init: {
-			value () {
-				ctx.fillStyle = "RGB(0, 0, 0)";
-				ctx.fillRect(0, 0, this.width, this.height);
-			}
 		}
 	});
 
