@@ -20,104 +20,6 @@ const Breakout = (() => {
 	}; Breakout.prototype = Object.create(null, {
 		constructor: { value: Breakout },
 
-		Substance: {
-			value: (() => {
-				function Substance () {
-					
-				}; Substance.prototype = Object.create(null, {
-					constructor: { value: Substance },
-
-					x: { value: 0, configurable: true, writable: true, enumerable: true },
-					y: { value: 0, configurable: true, writable: true, enumerable: true },
-					texture: { value: null, configurable: true, writable: true, enumerable: true }
-				}); Object.defineProperties(Substance, {
-					Ball: {
-						value: (() => {
-							function Ball (radius = 5) {
-								this.radius = radius
-							}; Ball.prototype = Object.create(Substance.prototype, {
-								constructor: { value: Ball },
-
-								radius: { value: 0, configurable: true, writable: true, enumerable: true },
-								state: { value: 0, configurable: true, writable: true, enumerable: true },
-
-								move: {
-									value (dx = 0, dy = 0) {
-										this.x += dx,
-										this.y += dy;
-
-										ctx.beginPath();
-										ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-										ctx.closePath();
-
-										if (this.texture instanceof Breakout.Color) {
-											ctx.fillStyle = this.texture.toString();
-											ctx.fill();
-										} else if (this.texture instanceof Breakout.Texture) {
-											ctx.drawImage(this.texture.image, this.x, this.y, this.radius, this.radius);
-										}
-
-										ctx.fillStyle = new Breakout.Color().toString();
-									}
-								}
-							}); Object.defineProperties(Ball, {
-								STATE: {
-									get () {
-										return {
-											TO_LEFT_TOP: 1,
-											TO_LEFT_BOTTOM: 2,
-											TO_RIGHT_TOP: 3,
-											TO_RIGHT_BOTTOM: 4
-										}
-									},
-						
-									enumerable: true
-								}
-							});
-
-							return Ball;
-						})()
-					},
-
-					Block: {
-						value: (() => {
-							function Block () {
-								
-							}; Block.prototype = Object.create(Substance.prototype, {
-								draw: {
-									value () {
-										ctx.fillStyle = "RGB(128, 128, 128)";
-										ctx.fillRect(this.x, this.y, this.width, this.height);
-									}
-								}
-							});
-
-							return Block;
-						})()
-					},
-
-					Frip: {
-						value: (() => {
-							function Frip () {
-								
-							}; Frip.prototype = Object.create(Substance.prototype, {
-								draw: {
-									value () {
-										ctx.fillStyle = "RGB(128, 128, 128)";
-										ctx.fillRect(this.x, this.y, this.width, this.height);
-									}
-								}
-							});
-
-							return Frip;
-						})()
-					}
-				});
-
-				return Substance;
-			})()
-		},
-
 		
 		
 		width: { value: 0, configurable: true, writable: true, enumerable: true },
@@ -131,6 +33,104 @@ const Breakout = (() => {
 			}
 		}
 	}); Object.defineProperties(Breakout, {
+		Substance: {
+			value: (() => {
+				function Substance () {
+					
+				}; Substance.prototype = Object.create(null, {
+					constructor: { value: Substance },
+
+					x: { value: 0, configurable: true, writable: true, enumerable: true },
+					y: { value: 0, configurable: true, writable: true, enumerable: true },
+					texture: { value: null, configurable: true, writable: true, enumerable: true }
+				});
+
+				return Substance;
+			})()
+		}
+	}); Object.defineProperties(Breakout, {
+		Ball: {
+			value: (() => {
+				function Ball (radius = 5) {
+					this.radius = radius
+				}; Ball.prototype = Object.create(Breakout.Substance.prototype, {
+					constructor: { value: Ball },
+
+					radius: { value: 0, configurable: true, writable: true, enumerable: true },
+					state: { value: 0, configurable: true, writable: true, enumerable: true },
+
+					move: {
+						value (dx = 0, dy = 0) {
+							this.x += dx,
+							this.y += dy;
+
+							ctx.beginPath();
+							ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+							ctx.closePath();
+
+							if (this.texture instanceof Breakout.Color) {
+								ctx.fillStyle = this.texture.toString();
+								ctx.fill();
+							} else if (this.texture instanceof Breakout.Texture) {
+								ctx.drawImage(this.texture.image, this.x, this.y, this.radius, this.radius);
+							}
+
+							ctx.fillStyle = new Breakout.Color().toString();
+						}
+					}
+				}); Object.defineProperties(Ball, {
+					STATE: {
+						get () {
+							return {
+								TO_LEFT_TOP: 1,
+								TO_LEFT_BOTTOM: 2,
+								TO_RIGHT_TOP: 3,
+								TO_RIGHT_BOTTOM: 4
+							}
+						},
+			
+						enumerable: true
+					}
+				});
+
+				return Ball;
+			})()
+		},
+
+		Block: {
+			value: (() => {
+				function Block () {
+					
+				}; Block.prototype = Object.create(Breakout.Substance.prototype, {
+					draw: {
+						value () {
+							ctx.fillStyle = "RGB(128, 128, 128)";
+							ctx.fillRect(this.x, this.y, this.width, this.height);
+						}
+					}
+				});
+
+				return Block;
+			})()
+		},
+
+		Frip: {
+			value: (() => {
+				function Frip () {
+					
+				}; Frip.prototype = Object.create(Breakout.Substance.prototype, {
+					draw: {
+						value () {
+							ctx.fillStyle = "RGB(128, 128, 128)";
+							ctx.fillRect(this.x, this.y, this.width, this.height);
+						}
+					}
+				});
+
+				return Frip;
+			})()
+		},
+
 		Color: {
 			value: (() => {
 				function Color (red = 0, green = 0, blue = 0) {
