@@ -97,6 +97,16 @@ const Breakout = (() => {
 			})()
 		},
 
+		BlockContainer: {
+			value: (() => {
+				function BlockContainer () {
+
+				};
+
+				return BlockContainer;
+			})()
+		},
+
 		Block: {
 			value: (() => {
 				function Block () {
