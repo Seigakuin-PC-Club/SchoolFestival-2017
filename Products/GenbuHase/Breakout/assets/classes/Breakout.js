@@ -77,6 +77,78 @@ const Breakout = (() => {
 
 							ctx.fillStyle = new Breakout.Color().toString();
 						}
+					},
+
+					update: {
+						value (gameScreen) {
+							if (this.x <= 0) {
+								switch (this.state) {
+									case Breakout.Ball.STATE.TO_LEFT_TOP:
+										this.state = Breakout.Ball.STATE.TO_RIGHT_TOP;
+										break;
+					
+									case Breakout.Ball.STATE.TO_LEFT_BOTTOM:
+										this.state = Breakout.Ball.STATE.TO_RIGHT_BOTTOM;
+										break;
+								}
+							} else if (this.x + this.radius >= gameScreen.width) {
+								switch (this.state) {
+									case Breakout.Ball.STATE.TO_RIGHT_TOP:
+										this.state = Breakout.Ball.STATE.TO_LEFT_TOP;
+										break;
+					
+									case Breakout.Ball.STATE.TO_RIGHT_BOTTOM:
+										this.state = Breakout.Ball.STATE.TO_LEFT_BOTTOM;
+										break;
+								}
+							} else if (this.y <= 0) {
+								switch (this.state) {
+									case Breakout.Ball.STATE.TO_LEFT_TOP:
+										this.state = Breakout.Ball.STATE.TO_LEFT_BOTTOM;
+										break;
+					
+									case Breakout.Ball.STATE.TO_RIGHT_TOP:
+										this.state = Breakout.Ball.STATE.TO_RIGHT_BOTTOM;
+										break;
+								}
+							} else if (this.y + this.radius >= gameScreen.height) {
+								switch (this.state) {
+									case Breakout.Ball.STATE.TO_LEFT_BOTTOM:
+										this.state = Breakout.Ball.STATE.TO_LEFT_TOP;
+										break;
+					
+									case Breakout.Ball.STATE.TO_RIGHT_BOTTOM:
+										this.state = Breakout.Ball.STATE.TO_RIGHT_TOP;
+										break;
+								}
+							}
+					
+					
+					
+							switch (this.state) {
+								default:
+									this.state = Breakout.Ball.STATE.TO_RIGHT_BOTTOM;
+									this.move(this.speed, this.speed);
+					
+									break;
+					
+								case Breakout.Ball.STATE.TO_LEFT_TOP:
+									this.move(-this.speed, -this.speed);
+									break;
+					
+								case Breakout.Ball.STATE.TO_LEFT_BOTTOM:
+									this.move(-this.speed, this.speed);
+									break;
+					
+								case Breakout.Ball.STATE.TO_RIGHT_TOP:
+									this.move(this.speed, -this.speed);
+									break;
+					
+								case Breakout.Ball.STATE.TO_RIGHT_BOTTOM:
+									this.move(this.speed, this.speed);
+									break;
+							}
+						}
 					}
 				}); Object.defineProperties(Ball, {
 					STATE: {
