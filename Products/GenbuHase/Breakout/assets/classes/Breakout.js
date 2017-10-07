@@ -1,13 +1,17 @@
 const Breakout = (() => {
 	let ctx = null;
-
+	
 	/**
 	 * @param {Number} width
 	 * @param {Number} height
 	 */
-	function Breakout (width = DOM.width, height = DOM.height) {
+	function Breakout (ball, flip, width = DOM.width, height = DOM.height) {
+		this.ball = ball,
+		this.flip = flip,
 		this.width = width,
 		this.height = height;
+
+		this.blockManager = new Breakout.BlockManager();
 
 		ctx = DOM("#Breakout").getContext("2d");
 
@@ -25,6 +29,10 @@ const Breakout = (() => {
 		width: { value: 0, configurable: true, writable: true, enumerable: true },
 		height: { value: 0, configurable: true, writable: true, enumerable: true },
 		background: { value: null, configurable: true, writable: true, enumerable: true },
+
+		ball: { value: null, configurable: true, writable: true, enumerable: true },
+		flip: { value: null, configurable: true, writable: true, enumerable: true },
+		blockManager: { value: null, configurable: true, writable: true, enumerable: true },
 
 		draw: {
 			value () {
@@ -51,12 +59,15 @@ const Breakout = (() => {
 	}); Object.defineProperties(Breakout, {
 		Ball: {
 			value: (() => {
-				function Ball (radius = 5) {
-					this.radius = radius
+				function Ball (radius = 5, option = { speed: 0, texture: null }) {
+					this.radius = radius,
+					this.speed = option.speed,
+					this.texture = option.texture;
 				}; Ball.prototype = Object.create(Breakout.Substance.prototype, {
 					constructor: { value: Ball },
 
 					radius: { value: 0, configurable: true, writable: true, enumerable: true },
+					speed: { value: 0, configurable: true, writable: true, enumerable: true },
 					state: { value: 0, configurable: true, writable: true, enumerable: true },
 
 					move: {
@@ -74,8 +85,6 @@ const Breakout = (() => {
 							} else if (this.texture instanceof Breakout.Texture) {
 								ctx.drawImage(this.texture.image, this.x, this.y, this.radius, this.radius);
 							}
-
-							ctx.fillStyle = new Breakout.Color().toString();
 						}
 					},
 
@@ -169,15 +178,46 @@ const Breakout = (() => {
 			})()
 		},
 
+		BlockManager: {
+			value: (() => {
+				function BlockManager () {
+
+				}; BlockManager.prototype = Object.create(null, {
+					constructor: { value: BlockManager },
+
+					blocks: { value: [], configurable: true, writable: true, enumerable: true },
+
+					put: {
+						value (block) {
+							this.blocks.push(block);
+						}
+					}
+				});
+
+				return BlockManager;
+			})(),
+
+			enumerable: true
+		},
+
 		Block: {
 			value: (() => {
 				function Block () {
 					
 				}; Block.prototype = Object.create(Breakout.Substance.prototype, {
 					draw: {
-						value () {
-							ctx.fillStyle = "RGB(128, 128, 128)";
-							ctx.fillRect(this.x, this.y, this.width, this.height);
+						value (x = 0, y = 0, width = 0, height = 0) {
+							this.x = x,
+							this.y = y,
+							this.width = width,
+							this.height = height;
+
+							if (this.texture instanceof Breakout.Color) {
+								ctx.fillStyle = this.texture.toString();
+								ctx.fillRect(this.x, this.y, this.width, this.height);
+							} else if (this.texture instanceof Breakout.Texture) {
+								ctx.drawImage(this.texture.image, this.x, this.y, this.width, this.texture.image.height * (this.width / this.texture.image.width));
+							}
 						}
 					}
 				});
