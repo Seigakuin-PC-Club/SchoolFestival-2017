@@ -1,1 +1,1 @@
-let base = new SnakeGame();
+let base = new SnakeGame(Math.min(DOM.width, DOM.height), Math.min(DOM.width, DOM.height));
