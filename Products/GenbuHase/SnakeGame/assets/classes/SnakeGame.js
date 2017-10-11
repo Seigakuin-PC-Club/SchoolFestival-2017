@@ -3,48 +3,125 @@ const SnakeGame = (() => {
 		looper = null;
 
 	/**
-	 * @param {Number} [width=DOM.width]
-	 * @param {Number} [height=DOM.height]
+	 * @param {Number} [frameSize=Math.min(DOM.width, DOM.height)]
 	 * @param {Number} [split=20]
+	 * @param {SnakeGame.Util.Color} [backColor=new SnakeGame.Util.Color()]
+	 * @param {SnakeGame.Util.Color} [fontColor=new SnakeGame.Util.Color(255, 255, 255)]
 	 */
-	function SnakeGame (width = DOM.width, height = DOM.height, split = 20) {
+	function SnakeGame (frameSize = Math.min(DOM.width, DOM.height), split = 20, backColor = new SnakeGame.Util.Color(), fontColor = new SnakeGame.Util.Color(255, 255, 255)) {
 		this.snake = new SnakeGame.Snake(),
-		this.foods = Reflect.construct(SnakeGame.FoodCollection, [], SnakeGame.FoodCollection);
+		this.foods = new SnakeGame.FoodCollection();
 
-		this.width = width,
-		this.height = height,
+		this.width = this.height = frameSize,
+		this.panelWidth = this.panelHeight = frameSize / split,
 		this.split = split,
-		this.xSize = width / split,
-		this.ySize = height / split;
+
+		this.option.backColor = backColor,
+		this.option.fontColor = fontColor;
 
 		let cvs = DOM("Canvas", {
 			id: "SnakeGame",
 
 			attributes: {
-				width: width,
-				height: height
+				width: frameSize,
+				height: frameSize
 			}
 		}); ctx = cvs.getContext("2d");
+			ctx.font = `${this.panelWidth}px Sans-Serif`;
 
 		document.body.appendChild(cvs);
 
 
 
-		this.snake.push(new SnakeGame.SnakeHead(this.split / 2, this.split / 2));
+		this.snake.push(new SnakeGame.SnakeHead(split / 2, split / 2));
 		this.fillFood();
 		
-		looper = setInterval(this.draw.bind(this), 200);
+		looper = setInterval((() => {
+			let x = this.snake[0].x,
+				y = this.snake[0].y;
+
+			switch (this.option.currentKey) {
+				default:
+					this.draw();
+					return;
+
+				case 37:
+					x--;
+					break;
+
+				case 39:
+					x++;
+					break;
+
+				case 38:
+					y--;
+					break;
+
+				case 40:
+					y++;
+					break;
+			}
+
+			if (this.snake.isHit(x, y) || (x < 0 || x >= this.split) || (y < 0 || y >= this.split)) {
+				this.draw();
+				clearInterval(looper);
+
+				return;
+			}
+
+			this.snake.unshift(new SnakeGame.SnakeBody(x, y));
+
+			if (this.foods.isHit(x, y)) {
+				this.score += this.option.addedScore;
+				this.moveFood(this.foods.isHit(x, y));
+			} else {
+				this.snake.pop();
+			}
+
+			this.draw();
+		}).bind(this), 100);
+
+		window.addEventListener("keydown", (res) => {
+			switch (res.keyCode) {
+				case 37:
+					(this.option.currentKey == 39 && this.snake.length > 1) || (this.option.currentKey = res.keyCode);
+					break;
+
+				case 39:
+					(this.option.currentKey == 37 && this.snake.length > 1) || (this.option.currentKey = res.keyCode);
+					break;
+
+				case 38:
+					(this.option.currentKey == 40 && this.snake.length > 1) || (this.option.currentKey = res.keyCode);
+					break;
+
+				case 40:
+					(this.option.currentKey == 38 && this.snake.length > 1) || (this.option.currentKey = res.keyCode);
+					break;
+			}
+		});
 	}; SnakeGame.prototype = Object.create(null, {
 		constructor: { value: SnakeGame },
 
-		snake: { value: null, configurable: true, writable: true, enumerable: true },
+		snake: { value: [], configurable: true, writable: true, enumerable: true },
 		foods: { value: [], configurable: true, writable: true, enumerable: true },
+		score: { value: 0, configurable: true, writable: true, enumerable: true },
 
 		width: { value: 0, configurable: true, writable: true, enumerable: true },
 		height: { value: 0, configurable: true, writable: true, enumerable: true },
+		panelWidth: { value: 0, configurable: true, writable: true, enumerable: true },
+		panelHeight: { value: 0, configurable: true, writable: true, enumerable: true },
 		split: { value: 0, configurable: true, writable: true, enumerable: true },
-		xSize: { value: 0, configurable: true, writable: true, enumerable: true },
-		ySize: { value: 0, configurable: true, writable: true, enumerable: true },
+
+		option: {
+			value: {
+				addedScore: 0,
+				currentKey: 0,
+
+				backColor: null,
+				fontColor: null,
+			}
+		},
 
 		addFood: {
 			value (xRange = 0, yRange = 0) {
@@ -55,7 +132,6 @@ const SnakeGame = (() => {
 					if (this.snake.isHit(x, y) || this.foods.isHit(x, y)) continue;
 
 					this.foods.push(new SnakeGame.Food(x, y));
-
 					break;
 				}
 			}
@@ -73,16 +149,14 @@ const SnakeGame = (() => {
 
 		moveFood: {
 			value (food = new SnakeGame.Food()) {
-				let memory = [];
-
-				this.foods.forEach((elem, index) => {
-					if (elem.x == food.x && elem.y == food.y) {
-						memory.push(index);
-					}
+				let foods = this.foods.filter(elem => {
+					return (elem.x != food.x || elem.y != food.y);
 				});
 
-				memory.forEach(index => {
-					this.foods.splice()
+				this.foods = new SnakeGame.FoodCollection(this.foods.maxAmount);
+				
+				foods.forEach(elem => {
+					this.foods.push(elem);
 				});
 
 				this.addFood(this.split, this.split);
@@ -91,7 +165,23 @@ const SnakeGame = (() => {
 
 		draw: {
 			value () {
+				ctx.fillStyle = this.option.backColor.toString();
 				ctx.fillRect(0, 0, this.width, this.height);
+
+				ctx.fillStyle = this.option.fontColor.toString();
+				ctx.fillText(this.score, this.panelWidth, this.panelHeight * 2);
+
+				this.foods.forEach(food => {
+					ctx.fillText("◯", this.panelWidth * food.x, this.panelHeight * (food.y + 1));
+				});
+
+				this.snake.forEach(part => {
+					if (part instanceof SnakeGame.SnakeHead) {
+						ctx.fillText("@", this.panelWidth * part.x, this.panelHeight * (part.y + 1));
+					} else if (part instanceof SnakeGame.SnakeBody) {
+						ctx.fillText("◇", this.panelWidth * part.x, this.panelHeight * (part.y + 1));
+					}
+				});
 			}
 		},
 	}); Object.defineProperties(SnakeGame, {
@@ -118,31 +208,19 @@ const SnakeGame = (() => {
 		Snake: {
 			value: (() => {
 				function Snake (maxLength = 15) {
-					this.maxLength = maxLength;
-				}; Snake.prototype = Object.create(null, {
+					let self = Reflect.construct(Array, [], Snake);
+						self.maxLength = maxLength;
+
+					return self;
+				}; Snake.prototype = Object.create(Array.prototype, {
 					constructor: { value: Snake },
 
-					head: { value: null, configurable: true, writable: true, enumerable: true },
-					body: { value: [], enumerable: true },
 					maxLength: { value: 0, configurable: true, writable: true, enumerable: true },
-
-					push: {
-						value (child) {
-							if (!this.head) {
-								this.head = child;
-								return;
-							}
-
-							this.body.push(child);
-						}
-					},
 
 					isHit: {
 						value (x = 0, y = 0) {
-							if (this.head.x == x && this.head.y == y) return true;
-
-							for (let i = 0; i < this.body.length; i++) {
-								if (this.body[i].x == x && this.body[i].y == y) return true;
+							for (let i = 0; i < this.length; i++) {
+								if (this[i].x == x && this[i].y == y) return this[i];
 							}
 
 							return false;
@@ -168,10 +246,25 @@ const SnakeGame = (() => {
 			})()
 		},
 
+		SnakeBody: {
+			value: (() => {
+				function SnakeBody () {
+					SnakeGame.Substance.apply(this, arguments);
+				}; SnakeBody.prototype = Object.create(SnakeGame.Substance.prototype, {
+					constructor: { value: SnakeBody }
+				});
+
+				return SnakeBody;
+			})()
+		},
+
 		FoodCollection: {
 			value: (() => {
 				function FoodCollection (maxAmount = 10) {
-					this.maxAmount = maxAmount;
+					let self = Reflect.construct(Array, [], FoodCollection);
+						self.maxAmount = maxAmount;
+
+					return self;
 				}; FoodCollection.prototype = Object.create(Array.prototype, {
 					constructor: { value: FoodCollection },
 					
@@ -180,7 +273,7 @@ const SnakeGame = (() => {
 					isHit: {
 						value (x = 0, y = 0) {
 							for (let i = 0; i < this.length; i++) {
-								if (this[i].x == x && this[i].y == y) return true;
+								if (this[i].x == x && this[i].y == y) return this[i];
 							}
 
 							return false;
@@ -202,6 +295,34 @@ const SnakeGame = (() => {
 
 				return Food;
 			})()
+		},
+
+		Util: {
+			get () {
+				return {
+					Color: (() => {
+						function Color (r = 0, g = 0, b = 0) {
+							this.red = r,
+							this.green = g,
+							this.blue = b;
+						}; Color.prototype = Object.create(null, {
+							constructor: { value: Color },
+		
+							red: { value: 0, configurable: true, writable: true, enumerable: true },
+							green: { value: 0, configurable: true, writable: true, enumerable: true },
+							blue: { value: 0, configurable: true, writable: true, enumerable: true },
+
+							toString: {
+								value () {
+									return `RGB(${this.red}, ${this.green}, ${this.blue})`;
+								}
+							}
+						});
+		
+						return Color;
+					})()
+				}
+			}
 		}
 	});
 

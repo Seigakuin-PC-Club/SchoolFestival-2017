@@ -1,1 +1,2 @@
-let base = new SnakeGame(Math.min(DOM.width, DOM.height), Math.min(DOM.width, DOM.height));
+let base = new SnakeGame();
+	base.option.addedScore = 100;

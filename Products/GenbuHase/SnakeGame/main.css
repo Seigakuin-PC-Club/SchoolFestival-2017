@@ -5,3 +5,8 @@ HTML, Body {
 Body {
 	Overflow: Hidden;
 }
+
+#SnakeGame {
+	Display: Block;
+	Margin: Auto;
+}
