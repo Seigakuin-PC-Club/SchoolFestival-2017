@@ -1,0 +1,13 @@
+HTML, Body {
+	Margin: 0;
+}
+
+Body {
+	Background: URL("assets/images/back.png");
+	Overflow: Hidden;
+}
+
+#Invader {
+	Display: Block;
+	Margin: Auto;
+}
