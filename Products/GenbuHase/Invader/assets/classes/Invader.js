@@ -1,36 +1,30 @@
 class Invader {
-	constructor (frameSize = Math.min(window.innerWidth, window.innerHeight)) {
-		this.cvs.applyProperties({
+	constructor (cvs = DOM("Canvas"), frameSize = Math.min(window.innerWidth, window.innerHeight)) {
+		if (!cvs.parentNode) document.body.appendChild(cvs);
+
+		cvs.applyProperties({
 			attributes: {
 				width: frameSize,
 				height: frameSize
 			}
 		});
 
-		this.ctx = this.cvs.getContext("2d");
+		this.ctx = cvs.getContext("2d");
 	}
-	
-	/**
-	 * @memberof Invader
-	 * @readonly
-	 * 
-	 * @type {HTMLCanvasElement}
-	 */
-	get cvs () { return DOM("#Invader") }
 }
 
 class Chip {
 	constructor (ctx, url = "null.png") {
 		this.ctx = ctx,
-		this.url = url;
+		this.chipUrl = url;
 
-		this.image = new Image();
-		this.image.src = url;
+		this.chipImage = new Image();
+		this.chipImage.src = url;
 	}
 
 	draw () {
 		let ctx = this.ctx;
-			ctx.drawImage(this.image, this.x || 0, this.y || 0);
+			ctx.drawImage(this.chipImage, this.x || 0, this.y || 0);
 	}
 }
 
