@@ -1,9 +1,9 @@
 class Component {
-	constructor (methodName) {
+	constructor (componentName = "") {
 		try {
 			if (!this.constructor) throw new TypeError("Please use the 'new' operator, the component can't be called as a function.");
 			
-			let component = document.importNode(Components.componentsDoc.querySelector(`*[Data-Method="${methodName}"]`), true);
+			let component = document.importNode(Component.doc.querySelector(`*[Data-Component="${componentName}"]`), true);
 			
 			let componentWrapper = DOM("ComponentWrapper");
 				componentWrapper.appendChild(component);
@@ -12,12 +12,16 @@ class Component {
 					let content = componentWrapper.firstElementChild.outerHTML;
 					
 					for (let i = 0; i < arguments.length + 1; i++) {
-						content = content.replace(new RegExp(`\${${i}}`, "g"), arguments[i + 1]);
+						content = content.replace(new RegExp("\\$\\{" + i + "\\}", "g"), arguments[i + 1]);
 					}
+
+					return content
 				})();
 				
 			return componentWrapper.firstElementChild;
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	/**
@@ -30,7 +34,7 @@ class Component {
 		try {
 			doc.innerHTML = DOM.xhr({
 				type: "GET",
-				url: "/SchoolFestival-2017/assets/includes/Component/Components.html",
+				url: "/SchoolFestival-2017/assets/includes/Component/Component.html",
 				doesSync: false
 			}).response;
 		} catch (error) {}
