@@ -45,8 +45,8 @@ class Component {
 	static get Gamelist () {
 		return {
 			Game: (() => {
-				function Game (title = "Untitled") {
-					return new Component("Gamelist_Game", title);
+				function Game (title = "Untitled", url = "/") {
+					return new Component("Gamelist_Game", title, url);
 				};	Game.prototype = Object.create(null, {
 					constructor: { value: Game }
 				});

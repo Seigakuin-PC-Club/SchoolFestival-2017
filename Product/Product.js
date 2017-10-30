@@ -1,3 +1,3 @@
 window.addEventListener("DOMContentLoaded", () => {
-	DOM("#Gamelist").appendChild(new Component.Gamelist.Game("Breakout"));
+	DOM("#Gamelist").appendChild(new Component.Gamelist.Game("SnakeGame", "GenbuHase/SnakeGame/"));
 });

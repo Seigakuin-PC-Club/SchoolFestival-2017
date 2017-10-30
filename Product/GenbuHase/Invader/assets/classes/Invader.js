@@ -1,5 +1,10 @@
 class Invader {
 	constructor (cvs = DOM("Canvas"), frameSize = Math.min(window.innerWidth, window.innerHeight)) {
+		this.score = 0,
+		this.stage = 1,
+		this.clock = 0,
+		this.player = new Player();
+
 		if (!cvs.parentNode) document.body.appendChild(cvs);
 
 		cvs.applyProperties({
@@ -10,6 +15,22 @@ class Invader {
 		});
 
 		this.ctx = cvs.getContext("2d");
+	}
+
+	draw () {
+		this.clock++;
+
+		if (this.aliens.length == 0) {
+			if (this.clock > 100) {
+				this.stage++;
+				this.start();
+			}
+
+			return;
+		}
+
+		let hit = -1;
+		
 	}
 }
 

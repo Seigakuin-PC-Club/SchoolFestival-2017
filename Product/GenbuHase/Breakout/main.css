@@ -5,3 +5,8 @@ HTML, Body {
 Body {
 	Overflow: Hidden;
 }
+
+#Breakout {
+	Display: Block;
+	Margin: Auto;
+}
