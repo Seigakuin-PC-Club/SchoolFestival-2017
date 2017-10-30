@@ -1,6 +1,6 @@
 /*/
  *#######################################################################
- *DOM Extender v3.0
+ *DOM Extender v3.1
  *Copyright (C) 2016-2020 Genbu Project & Genbu Hase All Rights Reversed.
  *#######################################################################
 /*/
@@ -750,8 +750,6 @@
 
 
 
-importScript("https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.3.5/mobile-detect.min.js");
-
 const DOM = (() => {
 	/**
 	 * セレクタ($1)に応じてDOM要素を返す
@@ -770,7 +768,7 @@ const DOM = (() => {
 	 * 
 	 * @returns {HTMLElement}
 	 */
-	const DOM = function (selectorStr, option) {
+	function DOM (selectorStr, option) {
 		if (this.constructor.name == arguments.callee.prototype.constructor.name) throw new TypeError("it is not a constructor");
 		
 		selectorStr = selectorStr || "",
@@ -1382,7 +1380,7 @@ const DOM = (() => {
 	/**
 	 * @type {DOM.APIInfo}
 	 */
-	let apiInfo = new DOM.APIInfo("DOM Extender", 3.0);
+	let apiInfo = new DOM.APIInfo("DOM Extender", 3.1);
 
 	window.addEventListener("resize", (event) => {
 		DOM.width = window.innerWidth;

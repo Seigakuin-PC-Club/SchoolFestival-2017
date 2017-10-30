@@ -1,3 +1,10 @@
+@Font-Face {
+	Font-Family: "PixelMPlus12";
+	Src: URL("assets/includes/PixelMplus12-Regular.ttf");
+}
+
+
+
 HTML, Body {
 	Margin: 0;
 }
