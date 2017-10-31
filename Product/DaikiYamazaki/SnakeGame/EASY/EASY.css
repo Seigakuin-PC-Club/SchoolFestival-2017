@@ -1,0 +1,13 @@
+	  
+	 }
+canvas{
+	display:block;
+	background:#000;
+
+}
+#score{
+	padding-top:4px;
+	margin:0;
+	font-size:16px;
+	font-weight:italic;
+}

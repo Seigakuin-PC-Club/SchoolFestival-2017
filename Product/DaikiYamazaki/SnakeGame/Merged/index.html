@@ -1,0 +1,78 @@
+<!DocType HTML>
+
+<HTML>
+	<Head>
+		<Meta Charset = "UTF-8" />
+		<Title>SnakeGame</Title>
+
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/icon.css?family=Material+Icons" />
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/material.blue_grey-pink.min.css" />
+		<Script Src = "/SchoolFestival-2017/assets/includes/material.min.js" Defer = "Defer"></Script>
+
+		<Script Src = "main.js"></Script>
+		<Link Rel = "StyleSheet" Href = "main.css" />
+	</Head>
+
+	<Body onLoad = "showDialog()">
+		<Canvas ID = "field" Class = "hide" Width = "600" Height = "600"></Canvas>
+
+		<Div ID = "Detail" Class = "mdl-cell mdl-shadow--4dp hide">
+			<H4 Style = "Text-Decoration: Underline">ブロック崩し</H4>
+
+			<H5>░▒▓ ルール ▓▒░</H5>
+			<P>自分自身に当たるか、壁に当たったらアウト！！</P>
+
+			<H5>░▒▓ 各種仕様 ▓▒░</H5>
+			<Div>
+				<Div>
+					《Easy》
+					🍎＝20pt
+					🍌＝50pt
+					🍒＝100pt
+				</Div>
+				
+				<Div>
+					《Normal》
+					🍎＝50pt
+					🍌＝100pt
+					🍒＝200pt
+					💀＝-100pt
+				</Div>
+
+				<Div>
+					《Hard》
+					🍎＝100pt
+					🍌＝300pt
+					🍒＝500pt
+					💀＝-200pt
+				</Div>
+
+				<Div>
+					《Fever》
+					🍎＝500pt
+					🍌＝700pt
+					🍒＝800pt
+					💀＝-500pt
+					👑＝1000pt
+					☠＝-1000pt
+				</Div>
+			</Div>
+		</Div>
+	</Body>
+
+	<Section>
+		<Dialog ID = "ModeSelector">
+			<Select ID = "ModeSelector_Mode">
+				<Option Value = "Easy">Easy</Option>
+				<Option Value = "Normal">Normal</Option>
+				<Option Value = "Hard">Hard</Option>
+				<Option Value = "Fever">Fever</Option>
+			</Select>
+
+			<Div>
+				<Button ID = "ModeSelector_Start" onClick = "runGame()">Start</Button>
+				<Button ID = "ModeSelector_Quit" onClick = 'location.href = "/SchoolFestival-2017/Product/"'>Quit</Button>
+			</Div>
+		</Dialog>
+	</Section>
+</HTML>

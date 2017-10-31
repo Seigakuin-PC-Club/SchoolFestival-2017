@@ -1,0 +1,16 @@
+p { background-color: #DDDDDD;
+      font: 10px sans-serif;
+	  line-height: 1px;
+	  
+	 }
+canvas{
+	display:block;
+	background:#000;
+
+}
+#score{
+	padding-top:4px;
+	margin:0;
+	font-size:16px;
+	font-weight:italic;
+}

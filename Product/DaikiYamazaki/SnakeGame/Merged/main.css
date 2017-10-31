@@ -1,0 +1,100 @@
+HTML, Body {
+	Height: Auto;
+}
+
+Body {
+	Display: Flex;
+	Flex-Direction: Row;
+	Overflow: Hidden;
+}
+
+
+
+.hide {
+	Visibility: Hidden;
+}
+
+#field.EASY {
+	Background: RGB(11, 234, 0);
+}
+
+#field.NORMAL {
+	Background: RGB(255, 151, 13);
+}
+
+#field.HARD {
+	Background: RGB(15, 15, 120);
+}
+
+#field.FEVER {
+	Background: RGB(246, 6, 0);
+}
+
+#Detail {
+	Flex: 1;
+	Padding: 2.5vmin;
+	Background: White;
+}
+
+#Detail > Div {
+	Display: Flex;
+	Flex-Direction: Row;
+}
+
+#Detail > Div > Div {
+	Margin-Right: 5vmin;
+	White-Space: Pre-Line;
+}
+
+#Detail > Div > Div:Last-Child {
+	Margin-Right: 0;
+}
+
+
+
+#ModeSelector {
+	Width: 30%;
+	Height: 70%;
+}
+
+#ModeSelector_Mode {
+	Width: 100%;
+	Padding: 1vmin;
+}
+
+#ModeSelector > Div {
+	Display: Flex;
+	Flex-Direction: Row;
+	Justify-Content: Flex-Start;
+}
+
+#ModeSelector > Div > Button {
+	Border: None;
+	Margin-Right: 2.5vmin;
+
+	Font-Size: 1.8em;
+	Font-Weight: Bold;
+	Color: rgba(255, 255, 255, 0.842);
+}
+
+#ModeSelector > Div > Button:Last-Child {
+	Margin-Right: Auto;
+}
+
+#ModeSelector_Start {
+	padding: 10px 35px;
+	background-color: rgb(91, 129, 206);
+}
+
+#ModeSelector_Start:Hover {
+	background-color: rgb(146, 168, 204);
+}
+
+#ModeSelector_Quit {
+	padding: 10px 40.05px;
+	background-color: rgb(97, 212, 155);
+}
+
+#ModeSelector_Quit:Hover {
+	background-color: rgb(166, 199, 182);
+}
