@@ -17,6 +17,17 @@ const NORMAL = Symbol.for("NORMAL");
 const HARD = Symbol.for("HARD");
 const FEVER = Symbol.for("FEVER");
 
+const DB = new FirebasePlus({
+	apiKey: "AIzaSyCOWO_FHZxCrf5pnM2WkQx4ySckpyPhsHE",
+	authDomain: "seigpc-schoolfestival-2017.firebaseapp.com",
+	databaseURL: "https://seigpc-schoolfestival-2017.firebaseio.com",
+	projectId: "seigpc-schoolfestival-2017",
+	storageBucket: "seigpc-schoolfestival-2017.appspot.com",
+	messagingSenderId: "19065845746"
+}, (user) => {
+	DB.signInWithAnonymous();
+});
+
 let W = 20,
 	H = 20,
 	S = 20;
@@ -174,9 +185,11 @@ function tick() {
 	// you or wall collision
 	if (isHit(snake, x, y) || x < 0 || x >= W || y < 0 || y >= H) {
 		clearInterval(timer); // timer is setInterval("tick()", speed) (*speed is 200)
+
 		paint();
 		alert(gameoverMessage);
 		playing = false;
+
 		return;
 	}
 
