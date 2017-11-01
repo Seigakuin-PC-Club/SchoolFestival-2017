@@ -55,4 +55,45 @@ class Component {
 			})()
 		}
 	}
+
+	static get MDLSelect () {
+		return (() => {
+			function MDLSelect (name = "", children = []) {
+				let uuid = new DOM.Randomizer().generate(16);
+
+				let self = new Component("MDLSelect", name, uuid);
+				let selectBox = self.querySelector(`UL#MDLSelect-${uuid}-SelectBox`);
+
+				for (let i = 0; i < children.length; i++) {
+					selectBox.appendChild(
+						DOM("Li", {
+							classes: ["mdl-menu__item"],
+							text: children[i],
+
+							events: {
+								click: (event) => {
+									self.classList.add("is-dirty");
+									self.querySelector("Input.mdl-textfield__input").value = event.target.textContent;
+									
+									event.target.textContent || selectBox.classList.remove("is-dirty");
+								}
+							}
+						})
+					);
+				}
+
+				return self;
+			};
+
+			return MDLSelect;
+		})();
+	}
 }
+
+(() => {
+	window.addEventListener("DOMContentLoaded", () => {
+		DOM("@.mdl-select").forEach(selectBox => {
+			selectBox.outerHTML = new Component.MDLSelect().outerHTML;
+		});
+	});
+})();

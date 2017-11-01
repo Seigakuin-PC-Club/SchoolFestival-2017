@@ -28,6 +28,15 @@ const DB = new FirebasePlus({
 	DB.signInWithAnonymous();
 });
 
+const SOUNDS = {
+	DEATH: [
+		new Audio("assets/sounds/Death001.wav"),
+		new Audio("assets/sounds/Death002.wav"),
+		new Audio("assets/sounds/Death001.wav"),
+		new Audio("assets/sounds/Death003.wav")
+	]
+}
+
 let W = 20,
 	H = 20,
 	S = 20;
@@ -187,6 +196,16 @@ function tick() {
 		clearInterval(timer); // timer is setInterval("tick()", speed) (*speed is 200)
 
 		paint();
+
+		for (let i = 0; i < SOUNDS.DEATH.length; i++) {
+			SOUNDS.DEATH[i].addEventListener("ended", () => {
+				if (i + 1 < SOUNDS.DEATH.length) {
+					SOUNDS.DEATH[i + 1].play();
+				}
+			});
+		}
+
+		SOUNDS.DEATH[0].play();
 
 		document.querySelector("Dialog#NameInputer").showModal();
 		document.querySelector("#NameInputer_Content").textContent = gameoverMessage;

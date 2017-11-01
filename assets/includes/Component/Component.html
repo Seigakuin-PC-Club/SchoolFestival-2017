@@ -1,17 +1,24 @@
-<Section>
-	<Div Data-Component = "Gamelist_Game" Class = "mdl-card mdl-shadow--2dp">
-		<Div Class = "mdl-card__title">
-			<H2 Class = "mdl-card__title-text">${0}</H2>
-		</Div>
-
-		<Div Class = "mdl-card__supporting-text">
-
-		</Div>
-
-		<Div Class = "mdl-card__actions mdl-card--border">
-			<A Class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" Href = "${1}">
-				Let's play
-			</A>
-		</Div>
+<Div Data-Component = "Gamelist_Game" Class = "mdl-card mdl-shadow--2dp">
+	<Div Class = "mdl-card__title">
+		<H2 Class = "mdl-card__title-text">${0}</H2>
 	</Div>
-</Section>
+
+	<Div Class = "mdl-card__supporting-text">
+
+	</Div>
+
+	<Div Class = "mdl-card__actions mdl-card--border">
+		<A Class = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" Href = "${1}">
+			Let's play
+		</A>
+	</Div>
+</Div>
+
+<Div Data-Component = "MDLSelect" Class = "mdl-select mdl-textfield mdl-js-textfield">
+	<Input ID = "MDLSelect-${1}-Input" Class = "mdl-textfield__input" Type = "Text" Readonly = "Readonly" />
+	<Label ID = "MDLSelect-${1}-Label">${0}</Label>
+
+	<UL ID = "MDLSelect-${1}-SelectBox" Class = "mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left" For = "MDLSelect-${1}-Input">
+
+	</UL>
+</Div>
