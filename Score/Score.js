@@ -11,7 +11,7 @@ const DB = new FirebasePlus({
 
 window.addEventListener("DOMContentLoaded", () => {
 	document.querySelector("#SnakeGame-DY_Difficulty > Input").addEventListener("blur", event => {
-		let difficult = event.relatedTarget.textContent || "EASY";
+		let difficult = event.relatedTarget ? event.relatedTarget.textContent : "EASY";
 		let list = document.querySelector('#SnakeGame-DY > Table[ID$="Scorelist"]');
 
 		while (list.children.length > 1) list.children[1].remove();
