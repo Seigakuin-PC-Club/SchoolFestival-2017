@@ -2,4 +2,5 @@ Main#Gamelist {
 	Display: Flex;
 	Flex-Direction: Row;
 	Justify-Content: Space-Around;
+	Flex-Wrap: Wrap;
 }

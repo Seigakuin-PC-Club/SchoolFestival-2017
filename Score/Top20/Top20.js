@@ -23,4 +23,17 @@ window.addEventListener("DOMContentLoaded", () => {
 			amount: [20]
 		});
 	});
+
+	(() => {
+		let list = document.querySelector('#Reverse-DY > Table[ID$="Scorelist"]');
+
+		while (list.children.length > 1) list.children[1].remove();
+
+		DB.Database.sortByPriority(`Reverse-DY/`, res => {
+			let data = res.val();
+			if (res.key != "!SYSTEM") list.appendChild(new Component.Scorelist.Score(data.name, data.score));
+		}, {
+			amount: [20]
+		});
+	})();
 });
