@@ -4,17 +4,34 @@ const FirebasePlus = (function () {
 		database = null,
 		storage = null;
 
+	let onLoad = null;
+
 	function FirebasePlus (option = {}, onLoad = (user) => {}) {
 		project = firebase.initializeApp(option);
 		auth = project.auth(),
 		database = project.database(),
 		storage = project.storage();
 
+		onLoad = onLoad;
+
 		auth.onAuthStateChanged((user) => {
 			onLoad(user);
 		});
 	}; FirebasePlus.prototype = Object.create(Function.prototype, {
 		constructor: { value: FirebasePlus },
+
+		SIGNINTYPE: {
+			get () {
+				return {
+					GOOGLE: Symbol.for("GOOGLE"),
+					ANONYMOUS: Symbol.for("ANONYMOUS")
+				}
+			},
+
+			enumerable: true
+		},
+
+
 
 		Database: {
 			value: Object.create(Object.prototype, {
@@ -103,7 +120,7 @@ const FirebasePlus = (function () {
 				sortByChild: {
 					value (path = "", childKey = "", onGet = (res) => {}, sortOption = new FirebasePlus.SortManager()) {
 						let query = sortOption.apply(database.ref(path).orderByChild(childKey));
-							query.once("child_added", (res) => {
+							query.on("child_added", (res) => {
 								onGet(res);
 							});
 					}
@@ -112,7 +129,7 @@ const FirebasePlus = (function () {
 				sortByKey: {
 					value (path = "", onGet = (res) => {}, sortOption = new FirebasePlus.SortManager()) {
 						let query = sortOption.apply(database.ref(path).orderByKey());
-							query.once("child_added", (res) => {
+							query.on("child_added", (res) => {
 								onGet(res);
 							});
 					}
@@ -121,7 +138,7 @@ const FirebasePlus = (function () {
 				sortByValue: {
 					value (path = "", onGet = (res) => {}, sortOption = new FirebasePlus.SortManager()) {
 						let query = sortOption.apply(database.ref(path).orderByValue());
-							query.once("child_added", (res) => {
+							query.on("child_added", (res) => {
 								onGet(res);
 							});
 					}
@@ -130,7 +147,7 @@ const FirebasePlus = (function () {
 				sortByPriority: {
 					value (path = "", onGet = (res) => {}, sortOption = new FirebasePlus.SortManager()) {
 						let query = sortOption.apply(database.ref(path).orderByPriority());
-							query.once("child_added", (res) => {
+							query.on("child_added", (res) => {
 								onGet(res);
 							});
 					}
@@ -152,23 +169,71 @@ const FirebasePlus = (function () {
 
 		user: { get () { return auth.currentUser } },
 
-		signInWithGoogle: {
-			value (scope) {
-				scope = scope || [""];
+		signInWithRedirect: {
+			value (signInType = this.SIGNINTYPE.GOOGLE, scope = [""]) {
+				let provider = null;
 
-				let provider = new firebase.auth.GoogleAuthProvider();
-					scope.forEach((value) => {
-						provider.addScope(value);
-					});
+				switch (signInType) {
+					case this.SIGNINTYPE.GOOGLE:
+						provider = new firebase.auth.GoogleAuthProvider();
+						break;
 
+					case this.SIGNINTYPE.ANONYMOUS:
+						this.signInWithAnonymous();
+						return;
+
+						break;
+				}
+
+				scope.forEach((value) => {
+					provider.addScope(value);
+				});
+
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInType", Symbol.keyFor(signInType)),
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInScope", scope.toString());
+				
 				auth.signInWithRedirect(provider);
 			},
 
 			enumerable: true
 		},
 
+		signInWithPopup: {
+			value (signInType = this.SIGNINTYPE.GOOGLE, scope = [""]) {
+				let provider = null;
+
+				switch (signInType) {
+					case this.SIGNINTYPE.GOOGLE:
+						provider = new firebase.auth.GoogleAuthProvider();
+						break;
+
+					case this.SIGNINTYPE.ANONYMOUS:
+						this.signInWithAnonymous();
+						return;
+						
+						break;
+				}
+
+				scope.forEach((value) => {
+					provider.addScope(value);
+				});
+
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInType", Symbol.keyFor(signInType)),
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInScope", scope.toString());
+				
+				auth.signInWithPopup(provider).then(res => {
+					onLoad(res.user);
+				});
+			},
+
+			enumerable: true
+		},
+
 		signInWithAnonymous: {
-			value (scope) {
+			value () {
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInType", "Anonymous"),
+				localStorage.setItem("com.GenbuProject.FirebasePlus.signInScope", "[]");
+
 				auth.signInAnonymously();
 			},
 
@@ -185,13 +250,18 @@ const FirebasePlus = (function () {
 		},
 
 		reauth: {
-			value (scope) {
-				scope = scope || [""];
+			value (scope = [""]) {
+				let provider = null;
+				
+				switch (localStorage.getItem("com.GenbuProject.FirebasePlus.signInType")) {
+					case Symbol.keyFor(this.SIGNINTYPE.GOOGLE):
+						provider = new firebase.auth.GoogleAuthProvider();
+						break;
+				}
 
-				let provider = new firebase.auth.GoogleAuthProvider();
-					scope.forEach((value) => {
-						provider.addScope(value);
-					});
+				scope.forEach((value) => {
+					provider.addScope(value);
+				});
 
 				return this.user.reauthenticateWithPopup(provider);
 			},

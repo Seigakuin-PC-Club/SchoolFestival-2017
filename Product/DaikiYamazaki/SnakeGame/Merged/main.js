@@ -247,7 +247,6 @@ function paint() {
 		snake.forEach(function (p) {
 			if (ctx instanceof CanvasRenderingContext2D) {
 				ctx.fillText("●", (p.x * S), ((p.y + 1) * S));
-
 			}
 		});
 
@@ -275,7 +274,7 @@ function checkDirection(direction) {
 function keydown(event) {
 	keyCode = event.keyCode;
 
-	if (!playing) {
+	if (!playing && !document.querySelector("Dialog#NameInputer").open) {
 		if (keyCode == 32) {
 			location.reload();
 		}
