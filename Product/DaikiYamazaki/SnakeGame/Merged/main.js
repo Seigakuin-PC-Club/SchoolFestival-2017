@@ -337,9 +337,9 @@ function runGame() {
 	init();
 }
 
-document.querySelector("Dialog#NameInputer_Btns_Submit").addEventListener("click", () => {
+document.querySelector("#NameInputer_Btns_Submit").addEventListener("click", () => {
 	DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
-		playedAt: new Date(),
+		playedAt: new Date().getTime(),
 		score: point
 	});
 
