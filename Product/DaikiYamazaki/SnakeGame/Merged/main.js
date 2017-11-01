@@ -25,8 +25,6 @@ const DB = new FirebasePlus({
 	storageBucket: "seigpc-schoolfestival-2017.appspot.com",
 	messagingSenderId: "19065845746"
 }, (user) => {
-	console.log(user);
-	
 	DB.signInWithAnonymous();
 });
 
@@ -337,10 +335,12 @@ function runGame() {
 }
 
 document.querySelector("#NameInputer_Btns_Submit").addEventListener("click", () => {
-	DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
-		name: document.querySelector("#NameInputer_Name-Input").value || "淫夢くん",
-		score: point
-	});
+	if (!event.currentTarget.classList.contains("mdl-button--disabled")) {
+		DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
+			name: document.querySelector("#NameInputer_Name-Input").value || "淫夢くん",
+			score: point
+		});
 
-	document.querySelector("#NameInputer").close();
+		document.querySelector("#NameInputer").close();
+	}
 });
