@@ -339,7 +339,7 @@ function runGame() {
 
 document.querySelector("#NameInputer_Btns_Submit").addEventListener("click", () => {
 	DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
-		playedAt: new Date().getTime(),
+		name: document.querySelector("#NameInputer_Name-Input").value || "淫夢くん",
 		score: point
 	});
 
