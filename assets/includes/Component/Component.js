@@ -15,7 +15,7 @@ class Component {
 						content = content.replace(new RegExp("\\$\\{" + i + "\\}", "g"), arguments[i + 1]);
 					}
 
-					return content
+					return content;
 				})();
 				
 			return componentWrapper.firstElementChild;
@@ -56,6 +56,20 @@ class Component {
 		}
 	}
 
+	static get Scorelist () {
+		return {
+			Score: (() => {
+				function Score (playerName = "", score = 0) {
+					return new Component("Scorelist_Score", playerName, score).querySelector("Tr");
+				};	Score.prototype = Object.create(null, {
+					constructor: { value: Score }
+				});
+
+				return Score;
+			})()
+		}
+	}
+
 	static get MDLSelect () {
 		return (() => {
 			function MDLSelect (name = "", children = []) {
@@ -63,7 +77,7 @@ class Component {
 
 				let self = new Component("MDLSelect", name, uuid);
 				let selectBox = self.querySelector(`UL#MDLSelect-${uuid}-SelectBox`);
-
+				
 				for (let i = 0; i < children.length; i++) {
 					selectBox.appendChild(
 						DOM("Li", {
@@ -75,7 +89,7 @@ class Component {
 									self.classList.add("is-dirty");
 									self.querySelector("Input.mdl-textfield__input").value = event.target.textContent;
 									
-									event.target.textContent || selectBox.classList.remove("is-dirty");
+									event.target.textContent || self.classList.remove("is-dirty");
 								}
 							}
 						})
@@ -90,10 +104,18 @@ class Component {
 	}
 }
 
-(() => {
-	window.addEventListener("DOMContentLoaded", () => {
-		DOM("@.mdl-select").forEach(selectBox => {
-			selectBox.outerHTML = new Component.MDLSelect().outerHTML;
-		});
+window.addEventListener("DOMContentLoaded", () => {
+	DOM("@.mdl-select").forEach(selectBox => {
+		let items = [];
+
+		for (let i = 0; i < selectBox.children.length; i++) {
+			items.push(selectBox.children[i].textContent);
+		}
+
+		let newOne = new Component.MDLSelect(selectBox.dataset.label, items);
+		newOne.id = selectBox.id;
+
+		selectBox.parentNode.insertBefore(newOne, selectBox);
+		selectBox.parentNode.removeChild(selectBox);
 	});
-})();
+});

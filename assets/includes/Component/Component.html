@@ -14,11 +14,20 @@
 	</Div>
 </Div>
 
-<Div Data-Component = "MDLSelect" Class = "mdl-select mdl-textfield mdl-js-textfield">
+<Div Data-Component = "Scorelist_Score">
+	<Table>
+		<Tr>
+			<Td>${0}</Td>
+			<Td Class = "mdl-data-table__cell--non-numeric">${1}</Td>
+		</Tr>
+	</Table>
+</Div>
+
+<Div Data-Component = "MDLSelect" Class = "mdl-select mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	<Input ID = "MDLSelect-${1}-Input" Class = "mdl-textfield__input" Type = "Text" Readonly = "Readonly" />
-	<Label ID = "MDLSelect-${1}-Label">${0}</Label>
+	<Label ID = "MDLSelect-${1}-Label" Class = "mdl-textfield__label">${0}</Label>
 
 	<UL ID = "MDLSelect-${1}-SelectBox" Class = "mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left" For = "MDLSelect-${1}-Input">
-
+		
 	</UL>
 </Div>

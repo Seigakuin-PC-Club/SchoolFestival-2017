@@ -1,52 +1,24 @@
-/*window.addEventListener("DOMContentLoaded", () => {
-	DOM('@*.mdl-select').forEach((select) => {
-		select.classList.add("mdl-textfield"),
-		select.classList.add("mdl-js-textfield"),
-		select.classList.add("mdl-textfield--floating-label");
+const DB = new FirebasePlus({
+	apiKey: "AIzaSyCOWO_FHZxCrf5pnM2WkQx4ySckpyPhsHE",
+	authDomain: "seigpc-schoolfestival-2017.firebaseapp.com",
+	databaseURL: "https://seigpc-schoolfestival-2017.firebaseio.com",
+	projectId: "seigpc-schoolfestival-2017",
+	storageBucket: "seigpc-schoolfestival-2017.appspot.com",
+	messagingSenderId: "19065845746"
+}, (user) => {
+	DB.signInWithAnonymous();
+});
 
-		let uuid = new DOM.Randomizer(DOM.Randomizer.TYPE.LEVEL3).generate(16),
-			selectItems = select.querySelectorAll("Li");
+window.addEventListener("DOMContentLoaded", () => {
+	document.querySelector("#SnakeGame-DY_Difficulty > Input").addEventListener("blur", event => {
+		let difficult = event.relatedTarget.textContent || "EASY";
+		let list = document.querySelector('#SnakeGame-DY > Table[ID$="Scorelist"]');
 
-			selectItems.forEach((selectItem) => {
-				selectItem.classList.add("mdl-menu__item");
+		while (list.children.length > 1) list.children[1].remove();
 
-				selectItem.addEventListener("click", (event) => {
-					select.classList.add("is-dirty");
-					select.querySelector("Input.mdl-textfield__input").value = selectItem.textContent;
-
-					selectItem.textContent || select.classList.remove("is-dirty");
-				});
-			});
-
-		select.appendChild(
-			DOM("Input", {
-				id: uuid,
-				classes: ["mdl-textfield__input"],
-
-				attributes: {
-					"Type": "Text",
-					"Readonly": "Readonly"
-				}
-			})
-		);
-
-		select.appendChild(
-			DOM("Label", {
-				classes: ["mdl-textfield__label"],
-				text: select.dataset.label || ""
-			})
-		);
-
-		select.appendChild(
-			DOM("UL", {
-				classes: ["mdl-menu", "mdl-js-menu", "mdl-js-ripple-effect", "mdl-menu--bottom-left"],
-
-				attributes: {
-					"For": uuid
-				},
-
-				children: selectItems
-			})
-		);
+		DB.Database.sortByChild(`SnakeGame-DY/${difficult}/`, "score", res => {
+			let data = res.val();
+			if (res.key != "!SYSTEM") list.appendChild(new Component.Scorelist.Score(data.name, data.score));
+		});
 	});
-});*/
+});
