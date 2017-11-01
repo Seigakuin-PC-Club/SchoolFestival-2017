@@ -25,6 +25,8 @@ const DB = new FirebasePlus({
 	storageBucket: "seigpc-schoolfestival-2017.appspot.com",
 	messagingSenderId: "19065845746"
 }, (user) => {
+	console.log(user);
+	
 	DB.signInWithAnonymous();
 });
 
@@ -187,7 +189,10 @@ function tick() {
 		clearInterval(timer); // timer is setInterval("tick()", speed) (*speed is 200)
 
 		paint();
-		alert(gameoverMessage);
+
+		document.querySelector("Dialog#NameInputer").showModal();
+		document.querySelector("#NameInputer_Content").textContent = gameoverMessage;
+
 		playing = false;
 
 		return;
@@ -284,8 +289,6 @@ function showDialog () {
 }
 
 function runGame() {
-	console.log("TEST");
-
 	let difficult = document.getElementById("ModeSelector_Mode").value;
 
 	switch (difficult) {
@@ -333,3 +336,12 @@ function runGame() {
 	document.querySelector("Dialog#ModeSelector").close();
 	init();
 }
+
+document.querySelector("Dialog#NameInputer_Btns_Submit").addEventListener("click", () => {
+	DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
+		playedAt: new Date(),
+		score: point
+	});
+
+	document.querySelector("#NameInputer").close();
+});

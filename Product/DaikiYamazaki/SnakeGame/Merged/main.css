@@ -98,3 +98,9 @@ Body {
 #ModeSelector_Quit:Hover {
 	background-color: rgb(166, 199, 182);
 }
+
+
+
+#NameInputer_Content {
+	White-Space: Pre-Line;
+}

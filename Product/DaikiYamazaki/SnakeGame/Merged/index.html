@@ -14,6 +14,9 @@
 
 		<Script Src = "main.js" Defer = "Defer"></Script>
 		<Link Rel = "StyleSheet" Href = "main.css" />
+
+		<Script Src = "assets/includes/Dialog.js" Defer = "Defer"></Script>
+		<Link Rel = "StyleSheet" Href = "assets/includes/Dialog.css" />
 	</Head>
 
 	<Body onLoad = "showDialog()">
@@ -75,6 +78,23 @@
 			<Div>
 				<Button ID = "ModeSelector_Start" onClick = "runGame()">Start</Button>
 				<Button ID = "ModeSelector_Quit" onClick = 'location.href = "/SchoolFestival-2017/Product/"'>Quit</Button>
+			</Div>
+		</Dialog>
+
+		<Dialog ID = "NameInputer" Class = "mdl-dialog">
+			<Div Class = "mdl-dialog__content">
+				<Div ID = "NameInputer_Content">
+					
+				</Div>
+
+				<Div ID = "NameInputer_Name" Class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<Input ID = "NameInputer_Name-Input" Class = "mdl-textfield__input" Type = "Text" Value = "" Required = "Required" />
+					<Label ID = "NameInputer_Name-Label" Class = "mdl-textfield__label" For = "NameInputer_Name-Input">お名前...</Label>
+				</Div>
+			</Div>
+
+			<Div ID = "NameInputer_Btns" Class = "mdl-dialog__actions">
+				<Button ID = "NameInputer_Btns_Submit" Class = "mdl-button mdl-js-button mdl-button--disabled mdl-js-ripple-effect" Type = "Button" Data-Action = "Dialog_Submit">送信</Button>
 			</Div>
 		</Dialog>
 	</Section>
