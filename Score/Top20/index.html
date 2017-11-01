@@ -1,0 +1,58 @@
+<!DocType HTML>
+
+<HTML>
+	<Head>
+		<Meta Charset = "UTF-8" />
+		<Title>男子高校生がゲームを作ってみた。《スコア》</Title>
+
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/icon.css?family=Material+Icons" />
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/material.blue_grey-pink.min.css" />
+		<Script Src = "/SchoolFestival-2017/assets/includes/material.min.js" Defer = "Defer"></Script>
+		
+		<Script Src = "/SchoolFestival-2017/assets/includes/firebase.js" Defer = "Defer"></Script>
+		<Script Src = "/SchoolFestival-2017/assets/includes/FirebasePlus v1.1.js" Defer = "Defer"></Script>
+		
+		<Script Src = "/SchoolFestival-2017/assets/includes/DOM Extender v3.1.js"></Script>
+		<Script Src = "/SchoolFestival-2017/assets/includes/Component/Component.js"></Script>
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/Component/Component.css" />
+		<Script Src = "/SchoolFestival-2017/assets/includes/Dialog.js" Defer = "Defer"></Script>
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/assets/includes/Dialog.css" />
+
+		<Script Src = "/SchoolFestival-2017/common.js"></Script>
+		<Link Rel = "StyleSheet" Href = "/SchoolFestival-2017/common.css" />
+
+		<Script Src = "Top20.js" Defer = "Defer"></Script>
+		<Link Rel = "StyleSheet" Href = "Top20.css" />
+	</Head>
+
+	<Body>
+		<Main Class = "mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			<Div Class = "mdl-tabs__tab-bar">
+				<A Class = "mdl-tabs__tab is-active" Href = "#SnakeGame-DY">SnakeGame by D.Y.</a>
+				<A Class = "mdl-tabs__tab" Href = "#SnakeGame-GH">SnakeGame by Genbu Hase</a>
+			</Div>
+
+			<Div ID = "SnakeGame-DY" Class = "mdl-tabs__panel is-active">
+				<Div ID = "SnakeGame-DY_Difficulty" Class = "mdl-select" data-label = "難易度選択">
+					<Li>EASY</Li>
+					<Li>NORMAL</Li>
+					<Li>HARD</Li>
+					<Li>FEVER</Li>
+				</Div>
+
+				<Table ID = "SnakeGame-DY_Scorelist" Class = "mdl-data-table mdl-js-data-table">
+					<THead>
+						<Tr>
+							<Th Class = "mdl-data-table__cell--non-numeric">プレイヤー名</Th>
+							<Th Class = "mdl-data-table__cell--non-numeric">スコア</Th>
+						</Tr>
+					</THead>
+
+					<TBody>
+						
+					</TBody>
+				</Table>
+			</Div>
+		</Main>
+	</Body>
+</HTML>

@@ -355,10 +355,12 @@ function runGame() {
 
 document.querySelector("#NameInputer_Btns_Submit").addEventListener("click", () => {
 	if (!event.currentTarget.classList.contains("mdl-button--disabled")) {
-		DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
+		let data = DB.Database.push(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/`, {
 			name: document.querySelector("#NameInputer_Name-Input").value || "淫夢くん",
 			score: point
 		});
+
+		DB.Database.setPriority(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/${data.key}/`, -point);
 
 		document.querySelector("#NameInputer").close();
 	}
