@@ -4,4 +4,19 @@ window.addEventListener("DOMContentLoaded", () => {
 			elem.classList.add(className);
 		});
 	});
+	
+	window.addEventListener("keydown", (res) => {
+		console.log(res);
+		
+		if (res.keyCode == 122) {
+			if (event.shiftKey && event.ctrlKey && event.altKey) {
+				document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() :
+				document.documentElement.webkitRequestFullScreen ? document.documentElement.webkitRequestFullScreen() :
+				document.documentElement.mozRequestFullScreen ? document.documentElement.mozRequestFullScreen() :
+				document.documentElement.msRequestFullscreen ? document.documentElement.msRequestFullscreen() : null;
+			} else {
+				event.preventDefault();
+			}
+		}
+	});
 });
