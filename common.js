@@ -6,8 +6,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 	
 	window.addEventListener("keydown", (res) => {
-		console.log(res);
-		
 		if (res.keyCode == 122) {
 			if (event.shiftKey && event.ctrlKey && event.altKey) {
 				document.documentElement.requestFullscreen ? document.documentElement.requestFullscreen() :
