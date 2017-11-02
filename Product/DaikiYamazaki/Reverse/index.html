@@ -99,6 +99,7 @@
 				BLACK = 2;
 			let data = [];
 			let myTurn = false;
+			let playing = true;
 
 			/**
 			 * 初期化関数
@@ -144,6 +145,7 @@
 				let BlackFlip = canFlip(BLACK);
 
 				if (numBlack + numWhite == 64 || (!WhiteFlip && !BlackFlip)) {
+					playing = false;
 					showMessage("ゲームオーバー");
 
 					document.querySelector("Dialog#NameInputer").showModal();
@@ -357,6 +359,14 @@
 					}
 				});
 			});
+			
+			window.addEventListener("input", (event) => {
+				if (!playing && !document.querySelector("Dialog#NameInputer").open) {
+					if (event.keyCode == 32) {
+						location.reload();
+					}
+				}
+			});
 		</script>
 	</head>
 
@@ -381,6 +391,10 @@
 				<Div ID = "NameInputer_Content">
 					ゲームオーバー！<Br />
 					あなたのスコアを記録しよう！
+					
+					<Br /><Br />
+					
+					SPACEボタンでリスタート！！
 				</Div>
 
 				<Div ID = "NameInputer_Name" Class = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
