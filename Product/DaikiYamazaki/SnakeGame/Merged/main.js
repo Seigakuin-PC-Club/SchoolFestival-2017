@@ -28,14 +28,18 @@ const DB = new FirebasePlus({
 	DB.signInWithAnonymous();
 });
 
-const SOUNDS = {
-	DEATH: [
-		new Audio("assets/sounds/Death001.wav"),
-		new Audio("assets/sounds/Death002.wav"),
-		new Audio("assets/sounds/Death001.wav"),
-		new Audio("assets/sounds/Death003.wav")
-	]
-}
+const SOUNDS = (() => {
+	let rnd = Math.floor(Math.random() * 2);
+
+	return {
+		DEATH: [
+			new Audio(`assets/sounds/Death001_${rnd}.wav`),
+			new Audio("assets/sounds/Death002.wav"),
+			new Audio(`assets/sounds/Death001_${rnd}.wav`),
+			new Audio("assets/sounds/Death003.wav")
+		]
+	}
+})();
 
 let W = 20,
 	H = 20,

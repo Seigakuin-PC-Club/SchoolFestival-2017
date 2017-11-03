@@ -1,0 +1,9 @@
+HTML, Body {
+	Height: 100%;
+	Margin: 0;
+}
+
+#MainScreen {
+	Border-Left: Thin Solid Black;
+	Border-Right: Thin Solid Black;
+}
