@@ -367,5 +367,6 @@ document.querySelector("#NameInputer_Btns_Submit").addEventListener("click", () 
 		DB.Database.setPriority(`SnakeGame-DY/${Symbol.keyFor(difficulty)}/${data.key}/`, -point);
 
 		document.querySelector("#NameInputer").close();
+		location.reload();
 	}
 });

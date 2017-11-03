@@ -65,7 +65,7 @@ class Ball extends ObjectBase {
 		let looper = setInterval(() => {
 			this.draw(v0x, v0y);
 
-			if (this.y)
+			//if (this.y)
 		}, TICK);
 	}
 }
